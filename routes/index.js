@@ -1,8 +1,18 @@
 var express = require('express');
 var router = express.Router();
+const path = require('path');
+const favicon = require('express-favicon');
+router.use(favicon(path.join(__dirname, '../public/images', 'favicon.ico')));
+var ws = require('../ws');
+
+
+router.get('/', function (req, res) {
+    //res.sendFile(__dirname + '/ws.html');
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
+})
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/asdf', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 

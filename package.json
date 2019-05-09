@@ -1,22 +1,21 @@
 {
-  "name": "prueba",
+  "name": "websocket",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodejs --require 'babel-register' index.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.3",
+    "@types/express": "^4.16.1",
+    "@types/ws": "^6.0.1",
+    "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
-    "pug": "2.0.0-beta11"
-  },
-  "devDependencies": {
-    "@types/node": "^11.13.8",
-    "babel": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0"
+    "express": "^4.16.4",
+    "express-favicon": "^2.0.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "typescript": "^3.4.5",
+    "ws": "^7.0.0"
   }
 }
