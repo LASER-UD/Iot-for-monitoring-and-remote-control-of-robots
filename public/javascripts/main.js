@@ -5,12 +5,16 @@ var ws = new WebSocket('ws://localhost:8000');
 // event emmited when connected
 ws.onopen = function () {
 	console.log('websocket is connected');
-	ws.send(JSON.stringify({'user': 'mecanico'}));
+	//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'hola'}));
 }
 // event emmited when receiving message 
 ws.onmessage = function (ev) {
 	console.log(ev);
 }
+ws.onclose = function() {
+	console.log('connection closed');
+}
+
 	$(document).ready(function() {
 		
 		$(document).keydown(function(tecla){ 
@@ -18,7 +22,8 @@ ws.onmessage = function (ev) {
 				switch(tec){
 					case 38: //flecha arriba
 						if(teclas[0]==0){ teclas[0]=1;
-							ws.send(JSON.stringify({'message': '1','tipo': 'tecla' }));}
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'hola'}));}
+							//ws.send(JSON.stringify({'message': '1','tipo': 'tecla' }));}
 						break;
 					case 40: //flecha abajo
 						if(teclas[1]==0){ teclas[1]=1;
