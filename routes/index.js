@@ -6,10 +6,15 @@ router.use(favicon(path.join(__dirname, '../public/images', 'favicon.ico')));
 var ws = require('../ws');
 
 
-router.get('/', function (req, res) {
-    //res.sendFile(__dirname + '/ws.html');
+router.get('/mecanico', function (req, res) {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
 })
+
+router.get('/', function (req, res) {
+  //res.sendFile(__dirname + '/ws.html');
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+})
+
 
 /* GET home page. */
 router.get('/asdf', function(req, res, next) {
