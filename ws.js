@@ -10,14 +10,18 @@ var userID = cont;
 webSockets[userID] = ws;
 console.log('Usuario ' + userID + ' de ' + Object.getOwnPropertyNames(webSockets));
 ws.on('message', function (message) {
-  var text_data_json = JSON.parse(message);
-  var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message']});
-  try {
-    webSockets[parseInt(text_data_json['userTo'])].send(request);
-  }
-  catch(error) {
-    console.error("El error de siempre");
-  }
+    var text_data_json = JSON.parse(message);
+    if(text_data_json['userFrom']!='Rita'){
+      var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message']});
+      try {
+        webSockets[parseInt(text_data_json['userTo'])].send(request);
+      }
+      catch(error) {
+        console.error("El error de siempre");
+      }
+    }else{
+      console.log(text_data_json['message']);
+    }
 });
 ws.on('close', function () {
   delete webSockets[userID]
