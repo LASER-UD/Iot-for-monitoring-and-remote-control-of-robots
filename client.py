@@ -62,6 +62,8 @@ def on_close(ws):
     print("desconectado")
 
 def on_open(ws):
+    print("conectado")
+    ws.send(json.dumps({'userFrom':'Jordan','userTo': 'Rita','message':'conexion'}))
     def run(*args):
         ws.send(json.dumps({'userFrom':'Jordan','userTo': 'Rita','message':'Jordan en linea'}))
         ws.send(json.dumps({'userFrom':'Jordan','userTo': 'mecanico','message':'Jordan en linea'}))
