@@ -50,6 +50,7 @@ import time
 def on_message(ws, message):
     text_data_json = json.loads(message)
     #msg = text_data_json['message']
+    print(message)
     print(text_data_json)
     #seri.press(str(msg))
 
@@ -57,6 +58,7 @@ def on_error(ws, error):
     print(error)
 
 def on_close(ws):
+    ws.send(json.dumps({'userFrom':'Jordan','userTo': 'Rita','message':'Jordan en fuera'}))
     print("desconectado")
 
 def on_open(ws):

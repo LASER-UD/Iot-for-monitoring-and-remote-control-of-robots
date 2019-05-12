@@ -12,7 +12,8 @@ ws.onmessage = function (ev) {
 	console.log(ev);
 }
 ws.onclose = function() {
-	console.log('connection closed');
+	ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Rita','message':'Mecanico desconectado'}));
+	console.log('Conecion cerrada');
 }
 
 	$(document).ready(function() {
@@ -22,17 +23,21 @@ ws.onclose = function() {
 				switch(tec){
 					case 38: //flecha arriba
 						if(teclas[0]==0){ teclas[0]=1;
+							console.log('userFrom Mecanico userTo Jordan message 1');
 							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'1'}));}
 							//ws.send(JSON.stringify({'message': '1','tipo': 'tecla' }));}
 						break;
 					case 40: //flecha abajo
 						if(teclas[1]==0){ teclas[1]=1;
+							console.log('userFrom Mecanico userTo Jordan message 2');
 							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'2'}));}
 						break;
 					case 39: // flecha derecha
+						console.log('userFrom Mecanico userTo Jordan message 3');
 						ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'3'}));
 						break;
 					case 37: // flecha izquierda
+					console.log('userFrom Mecanico userTo Jordan message 4');
 						ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'4'}));
 						break;	 
 					default:
@@ -40,6 +45,7 @@ ws.onclose = function() {
 							 //Z=90 x=88  f=70  s=83  w=87  d=68 a=65
 						if (men=='Z' || men=='X' || men=='F' || men=='S' || men=='W' || men=='D' || men=='A'){
 							//(tec==90 || tec==88 || tec==70 || tec=83 || tec== 87 || tec==68 || tec==65){
+							console.log('userFrom Mecanico userTo Jordan message 1',men);
 							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':men})); 
 						}
 						break;

@@ -2,6 +2,7 @@ var WebSocketServer = require('ws').Server,
 wss = new WebSocketServer({port: 8000})
 webSockets = new WebSocketServer({noServer: true});//Objeto vacio
 var cont=0;
+var des;
 
 wss.on('connection', function (ws,req) {
 cont=cont+1;
@@ -23,13 +24,14 @@ ws.on('message', function (message) {
           console.log('Usuario ' + userID + ' de ' + Object.getOwnPropertyNames(webSockets));
       }else{
           console.log(text_data_json['message']);
+          des=text_data_json['userFrom'];
       }
     }
 });
 ws.on('close', function () {
-  delete webSockets[userID]
+  //delete ws;
   cont=cont-1;
-  console.log('Usuario Desconectado ' + userID);
+  console.log('Usuario Desconectado ' + des);
 })
 // setInterval(
 //   () => ws.send(`${new Date()}`),
