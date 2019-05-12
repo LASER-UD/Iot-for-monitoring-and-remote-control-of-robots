@@ -2,6 +2,7 @@ var teclas=[0,0,0,0,0,0,0,0,0,0,0,0];
 	
 var ws = new WebSocket('ws://localhost:8000');
 
+
 // event emmited when connected
 ws.onopen = function () {
 	console.log('websocket is connected');
@@ -15,9 +16,28 @@ ws.onclose = function() {
 	ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Rita','message':'Mecanico desconectado'}));
 	console.log('Conecion cerrada');
 }
+ function  svgAttr() {
+	var polyEl = document.querySelector('.svg-attributes-demo polygon');
+	var feTurbulenceEl = document.querySelector('feTurbulence');
+	var feDisplacementMap = document.querySelector('feDisplacementMap');
+	polyEl.setAttribute('points', '64 46.36 40 35 8.574 15 63.446 47.32 64 111 64.554 47.32 88 35 119.426 15','fill','red');
+	feTurbulenceEl.setAttribute('baseFrequency', '.05');
+	feDisplacementMap.setAttribute('scale', '15');
+  /*DEMO*/
+  anime({
+	targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap',],
+	points: '64 19 36.4 0 8.574 19 20.574 83 64 115 105.426 83 119.426 19 91.713 0',
+	baseFrequency: 0,
+	scale: 1,
+	loop: true,
+	direction: 'alternate',
+	easing: 'easeInOutExpo'
+  });
+  /*DEMO*/
+  }
 
 	$(document).ready(function() {
-		
+
 		$(document).keydown(function(tecla){ 
 				tec = tecla.keyCode ;
 				switch(tec){
@@ -39,7 +59,11 @@ ws.onclose = function() {
 					case 37: // flecha izquierda
 					console.log('userFrom Mecanico userTo Jordan message 4');
 						ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'4'}));
-						break;	 
+						break;
+					case 13:
+						console.log('Señal de vida');
+						svgAttr();
+					break;
 					default:
 					var men= String.fromCharCode(tec)
 							 //Z=90 x=88  f=70  s=83  w=87  d=68 a=65
@@ -67,3 +91,6 @@ ws.onclose = function() {
 				}
 		});
 	}); 
+
+
+		
