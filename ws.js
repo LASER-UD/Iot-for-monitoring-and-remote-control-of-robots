@@ -7,6 +7,7 @@ var UserID;
 wss.on('connection', function (ws,req) {
 cont=cont+1;
 user=req.url;
+console.log(user);
 switch(user){
 	case 'mecanico':
 		websockets[1]=ws;
@@ -16,7 +17,7 @@ switch(user){
 		websockets[2]=ws;
 		break;
 	default:
-		print('usuario sin identificacion')
+		console.log('usuario sin identificacion');
 	break;
 }
 ws.on('message', function (message) {
