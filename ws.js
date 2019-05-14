@@ -10,7 +10,7 @@ ws.on('message', function (message) {
 
     var text_data_json = JSON.parse(message);
     if(text_data_json['userTo']!='Rita'){
-      var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message']});
+      var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message'],'type':text_data_json['type']});
       try {
         webSockets[text_data_json['userTo'].charCodeAt(1)].send(request);
       }

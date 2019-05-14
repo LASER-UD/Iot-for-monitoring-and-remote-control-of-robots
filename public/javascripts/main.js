@@ -1,19 +1,23 @@
 var teclas=[0,0,0,0,0,0,0,0,0,0,0,0];
 	
-var ws = new WebSocket('ws://localhost:8000');
+var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207');
 
 
 // event emmited when connected
 ws.onopen = function () {
 	console.log('websocket is connected');
-	ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Rita','message':'conexion'}));
+	ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Rita','type':'conexion','message':'conexion'}));
 }
 // event emmited when receiving message 
-ws.onmessage = function (ev) {
-	console.log(ev);
+ws.onmessage = function (e) {
+	var data=JSON.parse(e.data);
+        if(data['type']=='imagen'){
+            document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data['message'];
+	    console.log(e);
+	}
 }
 ws.onclose = function() {
-	ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Rita','message':'Mecanico desconectado'}));
+	ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Rita','type':'desconexion','message':'Mecanico desconectado'}));
 	console.log('Conecion cerrada');
 }
  function  svgAttr() {
@@ -44,21 +48,21 @@ ws.onclose = function() {
 					case 38: //flecha arriba
 						if(teclas[0]==0){ teclas[0]=1;
 							console.log('userFrom Mecanico userTo Jordan message 1');
-							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'1'}));}
+							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','type':'tecla','message':'1'}));}
 							//ws.send(JSON.stringify({'message': '1','tipo': 'tecla' }));}
 						break;
 					case 40: //flecha abajo
 						if(teclas[1]==0){ teclas[1]=1;
 							console.log('userFrom Mecanico userTo Jordan message 2');
-							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'2'}));}
+							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','type':'tecla','message':'2'}));}
 						break;
 					case 39: // flecha derecha
 						console.log('userFrom Mecanico userTo Jordan message 3');
-						ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'3'}));
+						ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','type':'tecla','message':'3',}));
 						break;
 					case 37: // flecha izquierda
 					console.log('userFrom Mecanico userTo Jordan message 4');
-						ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'4'}));
+						ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','type':'tecla','message':'4'}));
 						break;
 					case 13:
 						console.log('Señal de vida');
@@ -70,7 +74,7 @@ ws.onclose = function() {
 						if (men=='Z' || men=='X' || men=='F' || men=='S' || men=='W' || men=='D' || men=='A'){
 							//(tec==90 || tec==88 || tec==70 || tec=83 || tec== 87 || tec==68 || tec==65){
 							console.log('userFrom Mecanico userTo Jordan message 1',men);
-							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':men})); 
+							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':men,'type':'tecla'})); 
 						}
 						break;
 				}
@@ -80,11 +84,11 @@ ws.onclose = function() {
 				switch(tec){
 					case 38: //flecha arriba
 						if(teclas[0]==1){ teclas[0]=0;
-							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'5'}));}
+							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'5','type':'tecla'}));}
 						break;
 					case 40: //flecha abajo
 						if(teclas[1]==1){ teclas[1]=0;
-							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'6'}));}
+							ws.send(JSON.stringify({'userFrom':'Mecanico','userTo': 'Jordan','message':'6','type':'tecla'}));}
 						break;
 					default:
 						break;
