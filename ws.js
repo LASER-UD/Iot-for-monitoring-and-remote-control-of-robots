@@ -3,9 +3,22 @@ wss = new WebSocketServer({port: 8000})
 webSockets = new WebSocketServer({noServer: true});//Objeto vacio
 var cont=0;
 var des;
-
+var UserID;
 wss.on('connection', function (ws,req) {
 cont=cont+1;
+user=req.url();
+switch(user){
+	case 'mecanico':
+		websockets[1]=ws;
+		print('mecanico');
+		break;
+	case 'ras':
+		websockets[2]=ws;
+		break;
+	default:
+		print('usuario sin identificacion')
+	break;
+}
 ws.on('message', function (message) {
 
     var text_data_json = JSON.parse(message);
