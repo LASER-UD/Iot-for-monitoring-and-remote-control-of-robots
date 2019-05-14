@@ -6,7 +6,7 @@ var des;
 var UserID;
 wss.on('connection', function (ws,req) {
 cont=cont+1;
-user=req.url();
+user=req.url;
 switch(user){
 	case 'mecanico':
 		websockets[1]=ws;
