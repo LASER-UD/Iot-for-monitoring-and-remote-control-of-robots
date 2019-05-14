@@ -1,20 +1,32 @@
 var WebSocketServer = require('ws').Server,
 wss = new WebSocketServer({port: 8000})
 webSockets = new WebSocketServer({noServer: true});//Objeto vacio
+websockets[1]='';
+websockets[2]='';
 var cont=0;
 var des;
-var UserID;
+
 wss.on('connection', function (ws,req) {
 cont=cont+1;
 user=req.url;
-console.log(user);
 switch(user){
-	case 'mecanico':
-		websockets[1]=ws;
-		print('mecanico');
+	case '/mecanico':
+		if(websockets[1]=''){
+			websockets[1]=ws;
+			console.log('/mecanico');
+		}else{
+			ws.send('usuario ya conectado');
+			ws.close();		
+		}
 		break;
-	case 'ras':
-		websockets[2]=ws;
+	case '/ras':
+		if(websockets[1]=''){
+			websockets[2]=ws;
+			console.log('RAS');
+		}else{
+			ws.send('usuario ya conectado');
+			ws.close();		
+		}
 		break;
 	default:
 		console.log('usuario sin identificacion');
@@ -26,7 +38,7 @@ ws.on('message', function (message) {
     if(text_data_json['userTo']!='Rita'){
       var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message'],'type':text_data_json['type']});
       try {
-        webSockets[text_data_json['userTo'].charCodeAt(1)].send(request);
+        webSockets[text_data_json['userTo']].send(request);
       }
       catch(error) {
         console.error("El error de siempre");
@@ -43,9 +55,19 @@ ws.on('message', function (message) {
     }
 });
 ws.on('close', function () {
-  //delete ws;
-  cont=cont-1;
-  console.log('Usuario Desconectado ' + des);
+var user=req.url;
+switch(user){
+	case '/mecanico':
+		websockets[1]='';
+		console.log('desconectado mecanico');
+		break;
+	case '/ras':
+		websockets[2]='';
+		console.log('desconectado ras');
+		break;
+	default:
+		console.log('usuario sin identificacion');
+	break;
 })
 // setInterval(
 //   () => ws.send(`${new Date()}`),
