@@ -17,6 +17,33 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+function auth(req, res, next){//Proteccion de Htttp
+  var authHeader = req.headers.authorization;
+  if(!authHeader){
+    var err = new Error('You shall not pass!');
+    res.setHeader('WWW-Authenticate','Basic');
+    err.status = 401;
+    next(err);
+    return;
+  }
+
+  var auth = new Buffer(authHeader.split(' ')[1], 'base64').toString().split(':');
+  var user = auth[0];
+  var pass = auth[1];
+
+  if(user == 'mecanico' && pass == '1234mercury'){
+    next();
+  } else {
+    var err = new Error('You shall not pass!');
+    res.setHeader('WWW-Authenticate','Basic');
+    err.status = 401;
+    next(err);
+  }
+
+}
+
+app.use(auth);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
