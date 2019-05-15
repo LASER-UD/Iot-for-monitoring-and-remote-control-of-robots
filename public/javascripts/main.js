@@ -1,5 +1,16 @@
 var teclas=[0,0,0,0,0,0,0,0,0,0,0,0];
-	
+var animation = anime({
+	targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap',],
+	points: '64 19 36.4 0 8.574 19 20.574 83 64 115 105.426 83 119.426 19 91.713 0',
+	baseFrequency: 0,
+	scale: 1,
+	loop: true,
+	autoplay: false,
+	direction: 'alternate',
+	easing: 'easeInOutExpo'
+});
+
+
 var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/mecanico');
 //var ws = new WebSocket('ws://localhost:8000/mecanico');
 
@@ -35,16 +46,6 @@ $(document).ready(function() {
 	feTurbulenceEl.setAttribute('baseFrequency', '.05');
 	feDisplacementMap.setAttribute('scale', '15');
 	 /*DEMO*/
-	 var animation = anime({
-		targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap',],
-		points: '64 19 36.4 0 8.574 19 20.574 83 64 115 105.426 83 119.426 19 91.713 0',
-		baseFrequency: 0,
-		scale: 1,
-		loop: true,
-		autoplay: false,
-		direction: 'alternate',
-		easing: 'easeInOutExpo'
-	});
 	$(document).keydown(function(tecla){ 
 				tec = tecla.keyCode ;
 				//console.log(tec);
