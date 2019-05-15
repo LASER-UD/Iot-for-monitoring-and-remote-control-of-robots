@@ -38,7 +38,6 @@ wss.on('connection', function (ws, req) {
 		if (text_data_json['userTo'] != 'Rita') {
 			var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message'],'type':text_data_json['type']});
 			try {
-				console.log(parseInt(text_data_json['userTo']));
 				webSockets[parseInt(text_data_json['userTo'])].send(request);
 			}
 			catch (error) {

@@ -1,43 +1,3 @@
-var teclas=[0,0,0,0,0,0,0,0,0,0,0,0];
-var animation = anime({
-	targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap',],
-	points: '64 19 36.4 0 8.574 19 20.574 83 64 115 105.426 83 119.426 19 91.713 0',
-	baseFrequency: 0,
-	scale: 1,
-	loop: true,
-	autoplay: false,
-	direction: 'alternate',
-	easing: 'easeInOutExpo'
-});
-
-
-var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/mecanico');
-//var ws = new WebSocket('ws://localhost:8000/mecanico');
-
-// event emmited when connected
-ws.onopen = function () {
-	console.log('websocket is connected');
-	//ws.send(JSON.stringify({'userFrom':'1','userTo': 'Rita','type':'conexion','message':'conexion'}));
-}
-// event emmited when receiving message 
-ws.onmessage = function (e) {
-	var data=JSON.parse(e.data);
-      if(data['type']=='imagen'){
-        	document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data['message'];
-	    		console.log(e);
-			}else if(data['type']=='JC'){
-					console.log('Señal de vida');
-					animation.play();
-			}else{
-					console.log('Que la fuerza te acompañe');		
-					animation.pause();
-			}
-}
-		
-ws.onclose = function() {
-	ws.send(JSON.stringify({'userFrom':'1','userTo': 'Rita','type':'desconexion','message':'1 desconectado'}));
-	console.log('Conecion cerrada');
-}
 $(document).ready(function() {
 	var polyEl = document.querySelector('.svg-attributes-demo polygon');
 	var feTurbulenceEl = document.querySelector('feTurbulence');
@@ -46,6 +6,42 @@ $(document).ready(function() {
 	feTurbulenceEl.setAttribute('baseFrequency', '.05');
 	feDisplacementMap.setAttribute('scale', '15');
 	 /*DEMO*/
+	 var teclas=[0,0,0,0,0,0,0,0,0,0,0,0];
+	 var animation = anime({
+		 targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap',],
+		 points: '64 19 36.4 0 8.574 19 20.574 83 64 115 105.426 83 119.426 19 91.713 0',
+		 baseFrequency: 0,
+		 scale: 1,
+		 loop: true,
+		 autoplay: false,
+		 direction: 'alternate',
+		 easing: 'easeInOutExpo'
+	 });
+	  
+	 var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/mecanico');
+	 //var ws = new WebSocket('ws://localhost:8000/mecanico');
+	 
+	 // event emmited when connected
+	 ws.onopen = function () {
+		 console.log('websocket is connected');
+	 }
+	 // event emmited when receiving message 
+	 ws.onmessage = function (e){
+		 var data=JSON.parse(e.data);
+		   if(data['type']=='imagen'){
+				 document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data['message'];
+			}else if(data['type']=='JC'){
+						 console.log('Señal de vida');
+						 animation.play();
+			}else{
+						 console.log('Que la fuerza te acompañe');		
+						 animation.pause();
+			}
+	 }			 
+	 ws.onclose = function() {
+		 ws.send(JSON.stringify({'userFrom':'1','userTo': 'Rita','type':'desconexion','message':'1 desconectado'}));
+		 console.log('Conecion cerrada');
+	 }
 	$(document).keydown(function(tecla){ 
 				tec = tecla.keyCode ;
 				//console.log(tec);
