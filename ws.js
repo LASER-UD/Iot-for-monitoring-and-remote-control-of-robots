@@ -14,8 +14,8 @@ wss.on('connection', function (ws, req) {
 				webSockets[1] = ws;
 				conexiones[1] = 0;
 				console.log('mecanico conectado');
-				if (conexiones[2] == 0) {//El mecanico esta presente
-					webSockets[2].send(JSON.stringify({ 'userFrom': 'Rita', '': 'MC' }));
+				if (conexiones[2] == 0) {//Jordan esta presente
+					webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
 				}
 			} else {
 				ws.send('usuario ya conectado');
@@ -38,13 +38,14 @@ wss.on('connection', function (ws, req) {
 		if (text_data_json['userTo'] != 'Rita') {
 			var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message'],'type':text_data_json['type']});
 			try {
+				console.log(parseInt(text_data_json['userTo']));
 				webSockets[parseInt(text_data_json['userTo'])].send(request);
 			}
 			catch (error) {
 				console.error("El error de siempre");
 			}
 		} else {
-			console.log('Usuario ' + ws.url + ' de ' + text_data_json['message']);
+			console.log('Usuario '+ws.url+' de '+text_data_json['message']);
 		}
 	});
 	ws.on('close', function () {
