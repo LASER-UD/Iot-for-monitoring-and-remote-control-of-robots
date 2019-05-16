@@ -49,6 +49,7 @@ class VideoCamera():
 # seri= SerialD()
 
 def on_message(ws, message):
+    
     text_data_json = json.loads(message)
     #msg = text_data_json['message']
     print(message)
@@ -59,40 +60,43 @@ def on_error(ws, error):
     print(error)
 
 def on_close(ws):
-    ws.send(json.dumps({'userFrom':'Jordan','userTo': 'Rita','message':'Jordan en fuera','type':'imagen',}))
     print("desconectado")
 
 def on_open(ws):
     print("conectado")
-    ws.send(json.dumps({'userFrom':'Jordan','userTo': 'Rita','message':'conexion','type':'i',}))
-    def run(*args):
-        ws.send(json.dumps({'userFrom':'Jordan','userTo': 'Rita','message':'Jordan en linea','type':'i',}))
-        ws.send(json.dumps({'userFrom':'Jordan','userTo': 'mecanico','message':'Jordan en linea','type':'i',}))
-        camera=VideoCamera()
-        camera.start()
-        while 1:
-          ws.send(json.dumps({'userFrom':'Jordan','userTo': 'mecanico','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}))
-          print('hola')
-          time.sleep(1/25)
-	
-    thread.start_new_thread(run,() )
+    #def run(*args):
+        #camera=VideoCamera()
+        #camera.start()
+        #i=0;
+        #while 1:
+          #ws.send(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}))
+          #base64.b64encode(camera.get_frame()).decode('ascii')
+          #i=i+1;
+          #print(i)
+        
+	#thread.start_new_thread(run,() )
 
-def videos(camera,ws):
-    ws.send(json.dumps({'userFrom':'Jordan','userTo': 'mecanico','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}))
-    timer = threading.Timer(0.005, videos,args=(camera,ws))
+def videos(camera,ws,i):
+    #ws.send(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}))
+    #base64.b64encode(camera.get_frame()).decode('ascii')
+    camera.get_frame()
+    i=i+1;
+    print(i)
+    timer = threading.Timer(0.001, videos,args=(camera,ws,i))
     timer.start()
 
 if __name__ == "__main__":
-#    camera = VideoCamera()
-#    camera.start()
+    camera = VideoCamera()
+    camera.start()
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://ritaportal.udistrital.edu.co:10207",
+    ws = websocket.WebSocketApp("ws://ritaportal.udistrital.edu.co:10207/jordan",
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)
-    #time.sleep(1)
-    #timer = threading.Timer(0.005, videos,args=(camera , ws))
-    #timer.start()
+    time.sleep(1)
+    i=0
+    timer = threading.Timer(0.001, videos,args=(camera , ws,i))
+    timer.start()
     ws.on_open = on_open
     ws.run_forever()
 
