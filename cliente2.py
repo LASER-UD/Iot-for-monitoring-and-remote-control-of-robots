@@ -1,16 +1,17 @@
-import json
-import threading
-#import cv2
-import base64
-from autobahn.asyncio.websocket import WebSocketClientProtocol, \
-    WebSocketClientFactory
-from asyncio.events import get_event_loop
 
-try:
-    import asyncio
-except ImportError:
-    import trollius as asyncio
-""" 
+from twisted.internet.protocol import ReconnectingClientFactory
+from autobahn.twisted.websocket import WebSocketClientProtocol, WebSocketClientFactory
+import json
+import base64
+import subprocess
+from twisted.internet import task
+from twisted.internet import reactor
+
+server = "ritaportal.udistrital.edu.co"  # Server IP Address or domain eg: tabvn.com
+port = 10207  # Server Port
+import cv2
+
+
 class VideoCamera():
      def start(self):
          self.video = cv2.VideoCapture(0)
@@ -24,56 +25,58 @@ class VideoCamera():
          image = self.frame
          jpeg = cv2.imencode('.jpg', image)
          return jpeg.tobytes()
- """
-class MyClientProtocol(WebSocketClientProtocol):
-    def __init__(self):
-        self.decision=0
+ 
+
+class AppProtocol(WebSocketClientProtocol):    
+    def envioImage(self):
+            #self.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}).encode('utf8'))
+            print("envio")
+            self.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':'holq'}).encode('utf8'))
 
     def onConnect(self, response):
-        print("Server connected:")
+        print("server conectado")
 
     def onConnecting(self, transport_details):
         return None  # ask for defaults
 
-    async def onOpen(self):
-        # start sending messages every second ..
-        self.sendMessage(json.dumps({'userFrom':'2','userTo': 'Rita','message':'conexion'}).encode('utf8'))
-            #await asyncio.sleep(0.1)
-        def envioImage():
-            self.sendMessage(json.dumps({'userFrom':'2','userTo': 'Rita','message':'Imagen'}).encode('utf8'))
-            if self.decision==1:
-                self.factory.loop.call_later(1, envioImage)
-        # start sending messages every second ..
-        envioImage()
-
     def onMessage(self, payload, isBinary):
         text_data_json = json.loads(payload.decode('utf8'))
-        print(text_data_json)
+        
         if(text_data_json['type']=='MC'):
-            self.decision=1
-            self.envioImage()
+                print("MC")
+                loop=task.LoopingCall(self.envioImage)
+                loop.start(1)
         elif(text_data_json['type']=='MD'):
-            self.decision=0
+                print("MD")
+                loop.stop()
         else:
             print("No entiendo")
 
     async def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
+        
+        
+class AppFactory(WebSocketClientFactory, ReconnectingClientFactory):
+    protocol = AppProtocol
+
+    def clientConnectionFailed(self, connector, reason):
+        print("Unable connect to the server {0}".format(reason))
+        self.retry(connector)
+
+    def clientConnectionLost(self, connector, reason):
+        print("Lost connection and retrying... {0}".format(reason))
+        self.retry(connector)
 
 
-def videos(camera,factory):
-    factory.sendMessage(json.dumps({'userFrom':'Jordan','userTo': 'Rita','message':'co'}).encode('utf8'))
-    camera.get_frame()
 
-factory = WebSocketClientFactory(u"ws://ritaportal.udistrital.edu.co:10207/jordan")
-factory.protocol = MyClientProtocol
-loop = asyncio.get_event_loop()
-coro = loop.create_connection(factory, 'ritaportal.udistrital.edu.co', 10207)
-loop.run_until_complete(coro)
-loop.run_forever()
-#camera = VideoCamera()
-#camera.start()
-#timer = threading.Timer(0.001, videos,args=(camera,factory))
-#timer.start()
-#loop.stop()
-#loop.close()
+
+if __name__ == '__main__':
+    import sys
+    from twisted.python import log
+    from twisted.internet import reactor
+    log.startLogging(sys.stdout)
+    factory = AppFactory(u"ws://ritaportal.udistrital.edu.co:10207/jordan")
+    reactor.connectTCP(server, port, factory)
+    reactor.run()
+    camera = VideoCamera()
+    camera.start()
