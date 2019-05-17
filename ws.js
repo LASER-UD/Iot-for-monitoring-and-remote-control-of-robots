@@ -13,9 +13,10 @@ wss.on('connection', function (ws, req) {
 			if (conexiones[1] == 1) {
 				webSockets[1] = ws;
 				conexiones[1] = 0;
-				console.log('mecanico conectado');
+				console.log('Mecanico Conectado');
 				if (conexiones[2] == 0) {//Jordan esta presente
-					webSockets[1].send(JSON.stringify({ 'userFrom': 'Rita', 'type': 'JC' }));
+					console.log('Jordan el mecanico se conecto');
+					webSockets[1].send(JSON.stringify({'userFrom': 'Rita', 'type': 'JC' }));
 					webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
 				}
 			} else {
@@ -25,10 +26,11 @@ wss.on('connection', function (ws, req) {
 			break;
 		case '/jordan':
 			webSockets[2] = ws;
+			conexiones[2] = 0;
 			console.log('Jordan Conectado');
-			webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'prueba' }));
 			if (conexiones[1] == 0) {//El mecanico esta presente
-				webSockets[1].send(JSON.stringify({ 'userFrom': 'Rita', 'type': 'JC' }));
+				console.log('Mecanico jordan se conecto');
+				webSockets[1].send(JSON.stringify({'userFrom': 'Rita', 'type': 'JC' }));
 				webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
 			}
 			break;
@@ -57,7 +59,8 @@ wss.on('connection', function (ws, req) {
 				delete webSockets[1]
 				conexiones[1] = 1;
 				console.log('mecanico desconectado');
-				if (conexiones[2] == 0) {//El mecanico esta presente
+				if (conexiones[2] == 0) {//Jordan esta presente
+					console.log('Jordan mecanico Desconectado');
 					webSockets[2].send(JSON.stringify({ 'userFrom': 'Rita', 'message': 'MD' }));
 				}
 				break;
@@ -66,6 +69,7 @@ wss.on('connection', function (ws, req) {
 				conexiones[2] = 1;//habilita el puerto
 				console.log('Jordan desconectado');
 				if(conexiones[1]==0){//El mecanico esta presente
+					console.log('Mecanico jordan Desconectado');
 					webSockets[1].send(JSON.stringify({ 'userFrom': 'Rita', 'type':'JD'}));
 				}
 				break;
