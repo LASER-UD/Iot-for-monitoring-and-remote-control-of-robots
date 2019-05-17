@@ -77,9 +77,8 @@ def on_open(ws):
 	#thread.start_new_thread(run,() )
 
 def videos(camera,ws,i):
-    #ws.send(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}))
+    ws.send(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}))
     #base64.b64encode(camera.get_frame()).decode('ascii')
-    camera.get_frame()
     i=i+1;
     print(i)
     timer = threading.Timer(0.001, videos,args=(camera,ws,i))
