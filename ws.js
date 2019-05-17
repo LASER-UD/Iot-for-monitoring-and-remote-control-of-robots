@@ -15,8 +15,8 @@ wss.on('connection', function (ws, req) {
 				conexiones[1] = 0;
 				console.log('mecanico conectado');
 				if (conexiones[2] == 0) {//Jordan esta presente
-					webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
 					webSockets[1].send(JSON.stringify({ 'userFrom': 'Rita', 'type': 'JC' }));
+					webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
 				}
 			} else {
 				ws.send('usuario ya conectado');
@@ -26,6 +26,7 @@ wss.on('connection', function (ws, req) {
 		case '/jordan':
 			webSockets[2] = ws;
 			console.log('Jordan Conectado');
+			webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'prueba' }));
 			if (conexiones[1] == 0) {//El mecanico esta presente
 				webSockets[1].send(JSON.stringify({ 'userFrom': 'Rita', 'type': 'JC' }));
 				webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));

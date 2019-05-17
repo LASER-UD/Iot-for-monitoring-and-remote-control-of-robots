@@ -25,9 +25,9 @@ class VideoCamera():
          jpeg = cv2.imencode('.jpg', image)
          return jpeg.tobytes()
  """
-decision=0
-
 class MyClientProtocol(WebSocketClientProtocol):
+    def __init__(self):
+        self.decision=0
 
     def onConnect(self, response):
         print("Server connected:")
@@ -41,18 +41,19 @@ class MyClientProtocol(WebSocketClientProtocol):
             #await asyncio.sleep(0.1)
         def envioImage():
             self.sendMessage(json.dumps({'userFrom':'2','userTo': 'Rita','message':'Imagen'}).encode('utf8'))
-            if decision==1
+            if self.decision==1:
                 self.factory.loop.call_later(1, envioImage)
         # start sending messages every second ..
         envioImage()
 
     def onMessage(self, payload, isBinary):
-        text_data_json = json.loads(payload)
-        if(text_data_json['message']=='MC'):
-            decision=1
+        text_data_json = json.loads(payload.decode('utf8'))
+        print(text_data_json)
+        if(text_data_json['type']=='MC'):
+            self.decision=1
             self.envioImage()
-        elif(text_data_json['message']=='MD'):
-            decision=0
+        elif(text_data_json['type']=='MD'):
+            self.decision=0
         else:
             print("No entiendo")
 
