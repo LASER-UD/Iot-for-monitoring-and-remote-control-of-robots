@@ -4,7 +4,7 @@ from autobahn.twisted.websocket import WebSocketClientProtocol, WebSocketClientF
 import json
 import base64
 import subprocess
-from twisted.internet import task
+from twisted.internet.task import LoopingCall
 from twisted.internet import reactor
 
 server = "ritaportal.udistrital.edu.co"  # Server IP Address or domain eg: tabvn.com
@@ -27,13 +27,10 @@ class VideoCamera():
          return jpeg.tobytes()
  
 
-class AppProtocol(WebSocketClientProtocol):    
-    def envioImage(self):
-            #self.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}).encode('utf8'))
-            print("envio")
-            self.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':'holq'}).encode('utf8'))
-
+class AppProtocol(WebSocketClientProtocol):
+    INTERVAL=1        
     def onConnect(self, response):
+        self._loop = LoopingCall(self.envioImage)
         print("server conectado")
 
     def onConnecting(self, transport_details):
@@ -44,16 +41,22 @@ class AppProtocol(WebSocketClientProtocol):
         
         if(text_data_json['type']=='MC'):
                 print("MC")
-                loop=task.LoopingCall(self.envioImage)
-                loop.start(1)
+                self._loop.start(self.INTERVAL)
         elif(text_data_json['type']=='MD'):
                 print("MD")
-                loop.stop()
+                if _loop.running:
+                    _loop.stop()
         else:
             print("No entiendo")
 
     async def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
+        
+    def envioImage(self):
+            #self.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':base64.b64encode(camera.get_frame()).decode('ascii')}).encode('utf8'))
+            print("envio")
+            self.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':'holq'}).encode('utf8'))
+
         
         
 class AppFactory(WebSocketClientFactory, ReconnectingClientFactory):
