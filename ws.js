@@ -61,7 +61,7 @@ wss.on('connection', function (ws, req) {
 				console.log('mecanico desconectado');
 				if (conexiones[2] == 0) {//Jordan esta presente
 					console.log('Jordan mecanico Desconectado');
-					webSockets[2].send(JSON.stringify({ 'userFrom': 'Rita', 'message': 'MD' }));
+					webSockets[2].send(JSON.stringify({ 'userFrom': 'Rita', 'type': 'MD' }));
 				}
 				break;
 			case '/jordan':
