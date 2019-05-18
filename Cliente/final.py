@@ -32,7 +32,7 @@ class VideoCamera(object):
     def get_frame(self):
         image = self.frame
         ret, jpeg = cv2.imencode('.jpg', image)
-        out = base64.b64encode(jpeg.tobytes()).decode('ascii')
+        out = jpeg.tobytes().decode('ascii')
         return out
 
     def update(self):
