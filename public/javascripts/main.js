@@ -41,6 +41,7 @@ $(document).ready(function() {
 	 ws.onclose = function() {
 		 ws.send(JSON.stringify({'userFrom':'1','userTo': 'Rita','type':'desconexion','message':'1 desconectado'}));
 		 console.log('Conecion cerrada');
+		 animation.pause();
 	 }
 	$(document).keydown(function(tecla){ 
 				tec = tecla.keyCode ;
