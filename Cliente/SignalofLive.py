@@ -10,10 +10,12 @@ while response==1:
 	response=os.system("ping -c 1 ritaportal.udistrital.edu.co &")
 	sleep(1)
 
+print("Conexion Exitosa")
+os.system("python3 /home/pi/Documents/Iot-for-monitoring-and-remote-control-of-robots/Cliente/final.py")
+
 while True:
 	
 	response=os.system("ping -c 1 ritaportal.udistrital.edu.co &")
-
 	
 	if response==0:
 		GPIO.output(7,True)

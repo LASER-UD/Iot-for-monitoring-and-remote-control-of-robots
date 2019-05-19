@@ -29,7 +29,7 @@ $(document).ready(function() {
 	 ws.onmessage = function (e){
 		 var data=JSON.parse(e.data);
 		   if(data['type']=='imagen'){
-				 document.querySelector('#streaming').src= 'data:image/jpg,'+data['message'];
+				document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data['message'];
 			}else if(data['type']=='JC'){
 						 console.log('Señal de vida');
 						 animation.play();

@@ -20,7 +20,8 @@ fi
 #ejecuta el comando abriendo una terminal x-terminal-emulator (puede ser xterm dependiendo de cual terminal este instalada) y ejecutandolo 
 #python3 Documents/Iot-for-monitoring-and-remote-control-of-robots/Cliente/SignalofLive.py 
 
-x-terminal-emulator -e "python3 Documents/Iot-for-monitoring-and-remote-control-of-robots/Cliente/final.py" &
-setsid python3 Documents/Iot-for-monitoring-and-remote-control-of-robots/Cliente/SignalofLive.py 
+setsid python3 /home/pi/Documents/Iot-for-monitoring-and-remote-control-of-robots/Cliente/SignalofLive.py 
+setsid python3 /home/pi/Documents/Iot-for-monitoring-and-remote-control-of-robots/Cliente/final.py
+
 
 exit 0
