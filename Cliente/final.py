@@ -13,7 +13,7 @@ import sys
 
 server = "ritaportal.udistrital.edu.co"  # Server IP Address or domain eg: tabvn.com
 port = 10207  # Server Port
-stop = True
+stop = False
 
 class VideoCamera(object):
     def __init__(self):
@@ -70,14 +70,14 @@ class RandomByteStreamProducer:
 
 class AppProtocol(WebSocketClientProtocol):    
     def onOpen(self):
+        self.producer = RandomByteStreamProducer(self)
+        self.registerProducer(self.producer, True)
         print("Abierto")
 
     def onConnect(self, response):
         print("server conectado")
 
     def onConnecting(self, transport_details):
-        self.producer = RandomByteStreamProducer(self)
-        self.registerProducer(self.producer, True)
         print("Conectando")
         return None  # ask for defaults
 
