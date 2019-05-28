@@ -1,13 +1,26 @@
+# Monitoreo y Control de Robot via Internet
 
-## Pasos para ejecutar proyecto
+Este proyecto consiste el desarrollo y la configuración para el despliegue de un servidor con NodeJS, el cual sirva como puente de comunicación entre un robot con conexión a internet y un cliente, conectado a una pagina web o una aplicación web. Los canales de comunicación se desplegaran con websocket, gracias a que mantiene una conexión persistente y permite el envió de video codificado. el cual tenga la capacidad de moverse en todas las direcciones, subir rampas, pasar túneles, transmitir vídeo, enviar su ubicación en su entorno según sensores de distancia, tomar y lanzar una pelota. El proyecto incorpora una Rasberry pi 3, PSOC 5 LP, una camara USB y una estructura impresa en 3D.
+
+###### [Overview](#) | [Download](#download) | [Results](#results) | [Repository content](#repository-content) | [License](#license) | [Citing](#citing) | [Caveats](#caveats) | [Changelog](#changelog)
+
+## Pasos para ejecutar cliente (Rasberry Pi)
+
+
+## Pasos para ejecutar servidor (AWS)
 
 1. Clonar el repositorio 
 	`$ cd home/pi/Documents/`
-	`$ git clone https://github.com/LASER-UD/`
+	`$ git clone https://github.com/LASER-UD/Iot-for-monitoring-and-remote-control-of-robots`
 2. Instalar archivos:
 
 ## Posibles Errores
-1. Nginx no arranca 
+1. Detener Proceso desde terminal en caso de perder conexion ssh:
+	* Ver el numero del proceso `$ sudo fuser -n tcp 80`
+	* Copiar el numero del proceso 122
+	*`$ sudo kill -9 122`
+
+2. Nginx no arranca 
 	* Eliminar Nginx: `$ sudo apt-get remove nginx nginx-common`
 	* Eliminar Nginx: `$ sudo apt-get purge nginx nginx-common`
 	* Intalar de nuevo : `$ sudo apt-get install nginx` 
