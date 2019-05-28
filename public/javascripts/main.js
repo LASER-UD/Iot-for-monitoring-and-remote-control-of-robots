@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 	var polyEl = document.querySelector('.svg-attributes-demo polygon');
 	var feTurbulenceEl = document.querySelector('feTurbulence');
@@ -18,8 +19,8 @@ $(document).ready(function() {
 		 easing: 'easeInOutExpo'
 	 });
 	  
+	 //var ws = new WebSocket('ws://' + window.location.host +'/mecanico');
 	 var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/mecanico');
-	 //var ws = new WebSocket('ws://localhost:8000/mecanico');
 	 
 	 // event emmited when connected
 	 ws.onopen = function () {
