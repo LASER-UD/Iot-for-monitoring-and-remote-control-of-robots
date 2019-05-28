@@ -13,10 +13,11 @@ import sys
 
 server = "ritaportal.udistrital.edu.co"  # Server IP Address or domain eg: tabvn.com
 port = 10207  # Server Port
-stop = True
+stop = False
 
 class VideoCamera(object):
-    def __init__(self):
+    def start(self):
+        self.capture=True;
         self.video = cv2.VideoCapture(0)
         (self.grabbed, self.frame) = self.video.read()
         self.hilo=threading.Thread(target=self.update, args=())
@@ -28,6 +29,10 @@ class VideoCamera(object):
         stop=True
         print("limpio")
         del self.hilo
+    
+    def stop(self):
+        self.capture=False;
+        self.video.release()
 
     def get_frame(self):
         image = self.frame
@@ -37,7 +42,7 @@ class VideoCamera(object):
 
     def update(self):
         global stop
-        while not stop:
+        while self.capture:
             (self.grabbed, self.frame) = self.video.read()
 
 
@@ -49,6 +54,7 @@ class RandomByteStreamProducer:
         self.started = False
         self.paused = False
         self.camera = VideoCamera()
+
     def pauseProducing(self):
         self.paused = True
         
@@ -63,21 +69,30 @@ class RandomByteStreamProducer:
         
     def stopProducing(self):
         pass 
-        
+
+    def stopCamera(self):
+        self.camera.stop() 
+
+    def startCamera(self):
+        self.camera.start() 
+                
     def __del__(self):
         print("EliminandoProdutor")
+        if self.camera.capture:
+            self.camera.stop() 
+            print("Deteniendo la camara")
         del self.camera
 
 class AppProtocol(WebSocketClientProtocol):    
     def onOpen(self):
+        self.producer = RandomByteStreamProducer(self)
+        self.registerProducer(self.producer, True)
         print("Abierto")
 
     def onConnect(self, response):
         print("server conectado")
 
     def onConnecting(self, transport_details):
-        self.producer = RandomByteStreamProducer(self)
-        self.registerProducer(self.producer, True)
         print("Conectando")
         return None  # ask for defaults
 
@@ -85,8 +100,10 @@ class AppProtocol(WebSocketClientProtocol):
         text_data_json = json.loads(payload.decode('utf8'))
         if(text_data_json['type']=='MC'):
                 print("MC")
+                self.producer.startCamera()
                 self.producer.resumeProducing()
         elif(text_data_json['type']=='MD'):
+                self.producer.stopCamera()
                 print("MD")
         else:
             print("No entiendo")
