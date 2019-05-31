@@ -5,22 +5,29 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(7, GPIO.OUT)
 
-response = 1
-while response==1:
-	response=os.system("ping -c 1 ritaportal.udistrital.edu.co &")
-	sleep(1)
-
-print("Conexion Exitosa")
-os.system("python3 /home/pi/Documents/Iot-for-monitoring-and-remote-control-of-robots/Cliente/final.py")
+import socket
 
 while True:
+#creamos el socket de conexion
+	con = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+	response=0
+	try:
+		con.connect(('www.google.com', 80))
+	except:
+		response=1
+		con.close()
+	#response=1
+	#try:
+	#os.system("ping -c 1 google.com &")
+	#except:
+	#response=0
 	
-	response=os.system("ping -c 1 ritaportal.udistrital.edu.co &")
+	#print(response)
 	
 	if response==0:
 		GPIO.output(7,True)
-		sleep(0.5) 
+	else:
 		GPIO.output(7,False)
-		sleep(0.5) 
-
+	
 	sleep(1)
+	
