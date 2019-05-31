@@ -10,10 +10,11 @@ from twisted.internet import reactor
 import cv2
 import threading
 import sys
+import time
 
 server = "ritaportal.udistrital.edu.co"  # Server IP Address or domain eg: tabvn.com
 port = 10207  # Server Port
-stop = False
+
 
 class VideoCamera(object):
     def start(self):
@@ -25,25 +26,26 @@ class VideoCamera(object):
         
     def __del__(self):
         self.video.release()
-        global stop
-        stop=True
         print("limpio")
-        del self.hilo
+        
     
     def stop(self):
         self.capture=False;
         self.video.release()
 
     def get_frame(self):
-        image = self.frame
+#        (self.grabbed, image) = self.video.read()
+        #gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        #ret, jpeg = cv2.imencode('.jpg', gray_image)
+        image=cv2.resize(self.frame,(250,180),3)
         ret, jpeg = cv2.imencode('.jpg', image)
         out = base64.b64encode(jpeg.tobytes()).decode('ascii')
         return out
 
     def update(self):
-        global stop
         while self.capture:
             (self.grabbed, self.frame) = self.video.read()
+            
 
 
 @implementer(interfaces.IPushProducer)
@@ -65,7 +67,7 @@ class RandomByteStreamProducer:
         
         while not self.paused:
                 self.proto.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':self.camera.get_frame()}).encode('utf8'))
-                print("envio")
+                print('enviando')
         
     def stopProducing(self):
         pass 
@@ -103,6 +105,7 @@ class AppProtocol(WebSocketClientProtocol):
                 self.producer.startCamera()
                 self.producer.resumeProducing()
         elif(text_data_json['type']=='MD'):
+                self.producer.pauseProducing()
                 self.producer.stopCamera()
                 print("MD")
         else:
