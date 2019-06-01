@@ -37,8 +37,9 @@ class VideoCamera(object):
 #        (self.grabbed, image) = self.video.read()
         #gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         #ret, jpeg = cv2.imencode('.jpg', gray_image)
-        image=cv2.resize(self.frame,(250,180),3)
-        ret, jpeg = cv2.imencode('.jpg', image)
+        image=cv2.resize(self.frame,(250,180),4)
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 70]
+        ret, jpeg = cv2.imencode('.jpg', image, encode_param)
         out = base64.b64encode(jpeg.tobytes()).decode('ascii')
         return out
 
@@ -66,12 +67,18 @@ class RandomByteStreamProducer:
             self.started = True
         
         while not self.paused:
-                self.proto.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':self.camera.get_frame()}).encode('utf8'))
-                print('enviando')
+            #self.update()
+                self.hilo=threading.Thread(target=self.update, args=())
+                self.hilo.start()
+                #time.sleep(0.005)
         
     def stopProducing(self):
-        pass 
-
+        pass
+         
+    def update(self):
+        self.proto.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':self.camera.get_frame()}).encode('utf8'))
+        print('enviando')
+              
     def stopCamera(self):
         self.camera.stop() 
 
