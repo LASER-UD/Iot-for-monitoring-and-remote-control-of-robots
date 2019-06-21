@@ -11,9 +11,30 @@ import cv2
 import threading
 import sys
 import time
+import serial
 
 server = "ritaportal.udistrital.edu.co"  # Server IP Address or domain eg: tabvn.com
 port = 10207  # Server Port
+
+class SerialD(self):
+     cuenta=0
+     def __init__(self):
+          self.datos=None;
+          self.ser = serial.Serial()
+          self.ser.baudrate = 115200
+          self.ser.port = '/dev/ttyACM0'
+     def start(self):
+          self.ser.open()
+     def end(self):
+          self.ser.close()
+     def update(self):
+         self.ser.write(b"g")
+         self.ser.flush() #espera a  exista un dato
+         self.datos=int(self.ser.readline())
+         return self.datos 
+     def press(self,key):
+         print(key.encode('cp1250'))
+         self.ser.write(key.encode('cp1250'))#codifica y envia
 
 
 class VideoCamera(object):
@@ -96,6 +117,7 @@ class AppProtocol(WebSocketClientProtocol):
     def onOpen(self):
         self.producer = RandomByteStreamProducer(self)
         self.registerProducer(self.producer, True)
+        self.seri = SerialD()
         print("Abierto")
 
     def onConnect(self, response):
@@ -109,13 +131,19 @@ class AppProtocol(WebSocketClientProtocol):
         text_data_json = json.loads(payload.decode('utf8'))
         if(text_data_json['type']=='MC'):
                 print("MC")
+                self.seri.start()
                 self.producer.startCamera()
                 self.producer.resumeProducing()
         elif(text_data_json['type']=='MD'):
                 self.producer.pauseProducing()
                 self.producer.stopCamera()
+                self.seri.end()
                 print("MD")
         else:
+            message = text_data_json['message']
+            self.seri.press(str(message))
+
+
             print("No entiendo")
 
     def onClose(self, wasClean, code, reason):
