@@ -65,7 +65,7 @@ $(document).ready(function() {
 						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'2',}));
 						break;
 					case 37: // flecha izquierda
-					console.log('userFrom 1 userTo 2 message 4');
+					console.log('userFrom 1 userTo 2 message 3');
 						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'3'}));
 						break;
 					case 13:
@@ -92,11 +92,14 @@ $(document).ready(function() {
 				switch(tec){
 					case 38: //flecha arriba
 						if(teclas[0]==1){ teclas[0]=0;
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));}
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
+							console.log('userFrom 1 userTo 2 message 4');}
 						break;
 					case 40: //flecha abajo
 						if(teclas[1]==1){ teclas[1]=0;
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'5','type':'tecla'}));}
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'5','type':'tecla'}));
+							console.log('userFrom 1 userTo 2 message 5');
+						}
 						break;
 					default:
 						break;
