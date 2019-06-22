@@ -49,23 +49,24 @@ $(document).ready(function() {
 				//console.log(tec);
 				switch(tec){
 					case 38: //flecha arriba
-						if(teclas[0]==0){ teclas[0]=1;
-							console.log('userFrom 1 userTo 2 message 1');
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'1'}));}
+						if(teclas[0]==0){ 
+							teclas[0]=1;
+							console.log('userFrom 1 userTo 2 message 0');
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'0'}));}
 							//ws.send(JSON.stringify({'message': '1','tipo': 'tecla' }));}
 						break;
 					case 40: //flecha abajo
 						if(teclas[1]==0){ teclas[1]=1;
-							console.log('userFrom 1 userTo 2 message 2');
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'2'}));}
+							console.log('userFrom 1 userTo 2 message 1');
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'1'}));}
 						break;
 					case 39: // flecha derecha
-						console.log('userFrom 1 userTo 2 message 3');
-						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'3',}));
+						console.log('userFrom 1 userTo 2 message 2');
+						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'2',}));
 						break;
 					case 37: // flecha izquierda
 					console.log('userFrom 1 userTo 2 message 4');
-						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'4'}));
+						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'3'}));
 						break;
 					case 13:
 						console.log('Señal de vida');
@@ -91,11 +92,11 @@ $(document).ready(function() {
 				switch(tec){
 					case 38: //flecha arriba
 						if(teclas[0]==1){ teclas[0]=0;
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'5','type':'tecla'}));}
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));}
 						break;
 					case 40: //flecha abajo
 						if(teclas[1]==1){ teclas[1]=0;
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'6','type':'tecla'}));}
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'5','type':'tecla'}));}
 						break;
 					default:
 						break;
