@@ -16,7 +16,7 @@ import serial
 server = "ritaportal.udistrital.edu.co"  # Server IP Address or domain eg: tabvn.com
 port = 10207  # Server Port
 
-class SerialD(self):
+class SerialD():
      cuenta=0
      def __init__(self):
           self.datos=None;
@@ -98,7 +98,7 @@ class RandomByteStreamProducer:
          
     def update(self):
         self.proto.sendMessage(json.dumps({'userFrom':'2','userTo': '1','type':'imagen','message':self.camera.get_frame()}).encode('utf8'))
-        print('enviando')
+        #print('enviando')
               
     def stopCamera(self):
         self.camera.stop() 
@@ -142,10 +142,7 @@ class AppProtocol(WebSocketClientProtocol):
         else:
             message = text_data_json['message']
             self.seri.press(str(message))
-
-
-            print("No entiendo")
-
+            
     def onClose(self, wasClean, code, reason):
         del self.producer    
         print("WebSocket connection closed")
