@@ -24,6 +24,8 @@ Este proyecto consiste el desarrollo y la configuración para el despliegue de u
 	* Eliminar Nginx: `$ sudo apt-get remove nginx nginx-common`
 	* Eliminar Nginx: `$ sudo apt-get purge nginx nginx-common`
 	* Intalar de nuevo : `$ sudo apt-get install nginx` 
-
+3 Actualizacion de paquetes
+	* Actualizar package-lock.json: `$ sudo npm install`
+	* Seguir los pasos que dice la terminal
 - Nota: los archivos de error o de conexión se configuran en la configuracion de nginx 
 	* cambiar permisos de camara y puerto `$ sudo chmod 777 /dev/ttyACM0` `$ sudo chmod 777 /dev/video0`
