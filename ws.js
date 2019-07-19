@@ -40,6 +40,7 @@ wss.on('connection', function (ws, req) {
 	}
 	ws.on('message', function (message) {
 		var text_data_json = JSON.parse(message);
+		console.log("Mensaje");
 		if (text_data_json['userTo'] != 'Rita') {
 			try {
 				var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message'],'type':text_data_json['type']});
@@ -48,7 +49,7 @@ wss.on('connection', function (ws, req) {
 			catch (error) {
 				var request = JSON.stringify({'userFrom':'Rita','type': 'MD'});
 				webSockets[parseInt(text_data_json['userFrom'])].send(request);
-				console.error("Alguno de desconecto");
+				console.log("Alguno de desconecto");
 			}
 		} else {
 			console.log('Usuario '+text_data_json['userFrom']+' de '+text_data_json['message']);
@@ -77,7 +78,7 @@ wss.on('connection', function (ws, req) {
 				break;
 			default:
 				console.log('usuario sin identificacion');
-				break;
+			break;
 		}
 	}
 	);
