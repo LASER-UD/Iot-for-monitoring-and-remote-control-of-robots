@@ -104,15 +104,17 @@ $(document).ready(function() {
 						}
 						break;
 					case 39: // flecha derecha
-						if(teclas[2]==1){ teclas[2]=0;
-							console.log('userFrom 1 userTo 2 message 4');
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'4',}));}
+							if(teclas[2]==1){ teclas[2]=0;
+								ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
+								console.log('userFrom 1 userTo 2 message 5');
+							}
 							break;
 					case 37: // flecha izquierda
 						if(teclas[3]==1){ teclas[3]=0;
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
 							console.log('userFrom 1 userTo 2 message 4');
-							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'4'}));}
-							break;
+						}
+						break;
 					default:
 						break;
 				}
