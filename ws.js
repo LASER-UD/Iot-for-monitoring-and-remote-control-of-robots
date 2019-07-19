@@ -41,12 +41,14 @@ wss.on('connection', function (ws, req) {
 	ws.on('message', function (message) {
 		var text_data_json = JSON.parse(message);
 		if (text_data_json['userTo'] != 'Rita') {
-			var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message'],'type':text_data_json['type']});
 			try {
+				var request = JSON.stringify({'userFrom':text_data_json['userFrom'],'message':text_data_json['message'],'type':text_data_json['type']});
 				webSockets[parseInt(text_data_json['userTo'])].send(request);
 			}
 			catch (error) {
-				console.error("El error de siempre");
+				var request = JSON.stringify({'userFrom':'Rita','type': 'MD'});
+				webSockets[parseInt(text_data_json['userFrom'])].send(request);
+				console.error("Alguno de desconecto");
 			}
 		} else {
 			console.log('Usuario '+text_data_json['userFrom']+' de '+text_data_json['message']);

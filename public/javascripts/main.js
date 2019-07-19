@@ -61,21 +61,23 @@ $(document).ready(function() {
 							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'1'}));}
 						break;
 					case 39: // flecha derecha
+					if(teclas[2]==0){ teclas[2]=1;
 						console.log('userFrom 1 userTo 2 message 2');
-						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'2',}));
+						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'2',}));}
 						break;
 					case 37: // flecha izquierda
+					if(teclas[3]==0){ teclas[3]=1;
 					console.log('userFrom 1 userTo 2 message 3');
-						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'3'}));
+						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'3'}));}
 						break;
-					case 13:
-						console.log('Señal de vida');
-						animation.play();
-					break;
-					case 32:
-						console.log('Que la fuerza te acompañe');		
-						animation.pause();				
-					break;
+					//case 13:
+					//	console.log('Señal de vida');
+					//	animation.play();
+					//break;
+					//case 32:
+					//	console.log('Que la fuerza te acompañe');		
+					//	animation.pause();				
+					//break;
 					default:
 					var men= String.fromCharCode(tec)
 							 //Z=90 x=88  f=70  s=83  w=87  d=68 a=65
@@ -101,6 +103,16 @@ $(document).ready(function() {
 							console.log('userFrom 1 userTo 2 message 5');
 						}
 						break;
+					case 39: // flecha derecha
+						if(teclas[2]==1){ teclas[2]=0;
+							console.log('userFrom 1 userTo 2 message 6');
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'6',}));}
+							break;
+					case 37: // flecha izquierda
+						if(teclas[3]==1){ teclas[3]=0;
+						console.log('userFrom 1 userTo 2 message 7');
+							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'7'}));}
+							break;
 					default:
 						break;
 				}
