@@ -34,11 +34,21 @@ $(document).ready(function() {
 			}else if(data['type']=='JC'){
 						 console.log('Señal de vida');
 						 animation.play();
+			}else if(data['type']=='sensores'){
+						var sensores=data['message']
+					        document.getElementById('sensor').innerHTML = ("    sensor 1: ").concat(sensores[0]);
+						document.getElementById('sensor1').innerHTML =("    sensor 2: ").concat(sensores[1]);
+						document.getElementById('sensor2').innerHTML =("    sensor 3: ").concat(sensores[2]);
+						document.getElementById('sensor3').innerHTML =("    sensor 4: ").concat(sensores[3]);
+						document.getElementById('sensor4').innerHTML =("    sensor 5: ").concat(sensores[4]);
+						console.log(sensores);
+						//console.log(sensores[0]);
+
 			}else{
 						 console.log('Que la fuerza te acompañe');		
 						 animation.pause();
 			}
-	 }			 
+		 }			 
 	 ws.onclose = function() {
 		 ws.send(JSON.stringify({'userFrom':'1','userTo': 'Rita','type':'desconexion','message':'1 desconectado'}));
 		 console.log('Conecion cerrada');
