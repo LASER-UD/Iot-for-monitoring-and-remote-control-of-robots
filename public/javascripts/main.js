@@ -3,9 +3,14 @@ $(document).ready(function() {
 	var polyEl = document.querySelector('.svg-attributes-demo polygon');
 	var feTurbulenceEl = document.querySelector('feTurbulence');
 	var feDisplacementMap = document.querySelector('feDisplacementMap');
+ const angulo=45;
 	polyEl.setAttribute('points', '64 46.36 40 35 8.574 15 63.446 47.32 64 111 64.554 47.32 88 35 119.426 15','fill','red');
 	feTurbulenceEl.setAttribute('baseFrequency', '.05');
 	feDisplacementMap.setAttribute('scale', '15');
+document.getElementById('sensor').innerHTML = ("    derecha : ");
+document.getElementById('sensor1').innerHTML =("    adelante derecha: ").concat(Math.sin(Math.PI*angulo/180)*1,"    ",Math.cos(Math.PI*angulo/180));
+						document.getElementById('sensor2').innerHTML =("    adelante izquierda: ").concat(Math.sin(Math.PI*angulo/180)*1,"    ",Math.cos(Math.PI*angulo/180));
+						document.getElementById('sensor3').innerHTML =("    izquierda : ");
 	 /*DEMO*/
 	 var teclas=[0,0,0,0,0,0,0,0,0,0,0,0];
 	 var animation = anime({
@@ -35,20 +40,27 @@ $(document).ready(function() {
 						 console.log('Señal de vida');
 						 animation.play();
 			}else if(data['type']=='sensores'){
+            const angulo=45;
 						var sensores=data['message']
-					        document.getElementById('sensor').innerHTML = ("    sensor 1: ").concat(sensores[0]);
-						document.getElementById('sensor1').innerHTML =("    sensor 2: ").concat(sensores[1]);
-						document.getElementById('sensor2').innerHTML =("    sensor 3: ").concat(sensores[2]);
-						document.getElementById('sensor3').innerHTML =("    sensor 4: ").concat(sensores[3]);
-						document.getElementById('sensor4').innerHTML =("    sensor 5: ").concat(sensores[4]);
+//            document.getElementById('sensor').innerHTML = ("    sensor 1: ").concat(sensores[0]);
+//						document.getElementById('sensor1').innerHTML =("    sensor 2: ").concat(sensores[1]);
+//						document.getElementById('sensor2').innerHTML =("    sensor 3: ").concat(sensores[2]);
+//						document.getElementById('sensor3').innerHTML =("    sensor 4: ").concat(sensores[3]);
+//						document.getElementById('sensor4').innerHTML =("    sensor 5: ").concat(sensores[4]);
+                                                                
+            document.getElementById('sensor').innerHTML = ("    derecha : ").concat(sensores[0]);
+						document.getElementById('sensor1').innerHTML =("    adelante derecha: ").concat(Math.sin(Math.PI*angulo/180)*sensores[1],"    ",Math.cos(Math.PI*angulo/180)*sensores[1]);
+						document.getElementById('sensor2').innerHTML =("    adelante izquierda: ").concat(Math.sin(Math.PI*angulo/180)*sensores[2],"    ",Math.cos(Math.PI*angulo/180)*sensores[2]);
+						document.getElementById('sensor3').innerHTML =("    izquierda : ").concat(sensores[3]);
 			
 						//console.log(sensores[0]);
-
+      }else if(data['type']=='bola'){
+        document.getElementById('sensor4').innerHTML =(" Entro :)")   
 			}else{
 						 console.log('Que la fuerza te acompañe');		
 						 animation.pause();
 			}
-		 }			 
+  }			 
 	 ws.onclose = function() {
 		 ws.send(JSON.stringify({'userFrom':'1','userTo': 'Rita','type':'desconexion','message':'1 desconectado'}));
 		 console.log('Conecion cerrada');
@@ -96,7 +108,10 @@ $(document).ready(function() {
 							console.log('userFrom 1 userTo 2 message 1',men);
 							ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':men,'type':'tecla'})); 
 						}
-						break;
+            if(men=='M'){
+              document.getElementById('sensor4').innerHTML =(" ")
+            }
+					break;
 				}
 		});
 		$(document).keyup(function(tecla){ 
