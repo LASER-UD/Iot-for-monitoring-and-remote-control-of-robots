@@ -12,7 +12,8 @@ router.get('/mecanico', function (req, res) {
 
 router.get('/', function (req, res) {
   //res.sendFile(__dirname + '/ws.html');
-  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+  //res.sendFile(path.join(__dirname, '../public', 'index.html'));
+  res.render('index.hbs');
 })
 
 
