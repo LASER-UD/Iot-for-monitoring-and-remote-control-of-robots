@@ -1,15 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');//paquete para arreglar las rutas estaticas
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');//logger es igual a morgan
-const exphbs=require('express-handlebars');
+require('dotenv').config();
+const express = require('express');
+const path = require('path'); //paquete para arreglar las rutas estaticas
+
+const logger = require('morgan'); //logger es igual a morgan
+const exphbs = require('express-handlebars');
 
 
-var indexRouter = require('./routes/index');
-var loginRouter = require("./routes/login");//crea la variable y la vincula con el archivo
+const passport = require('passport');
+const session = require('express-session');
 
+
+//-- Inicializacion
+const db = require('./database');
 var app = express();
+
+require('./config/passport') //Se trae el archivo con la autenticacion de usuarios (este trae modelo base de datos de usuario)
+
+var server = require('http').Server(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +33,15 @@ app.set('view engine', '.hbs'); // Se selecciona motor de plantillas
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+
+
+app.use(session({ // Manejo del servidor de las cookies
+  secret: '3gsb2os82bwsk', // string para serializar/deserializar las cookies
+  resave: true,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize()); //Arranca passport configura cookies
+app.use(passport.session()); //Ejecuta proceso de lectura/escritura de cookie } --//
 
 /* Protección de conexion HTTP
 function auth(req, res, next){//Proteccion de Htttp
@@ -56,17 +71,24 @@ function auth(req, res, next){//Proteccion de Htttp
 
 app.use(auth);*/
 
+//Global variables (Middleware propio)
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
+//-- Routes ---
+app.use(require('./routes/users.routes'));
+app.use(require('./routes/aplicacion.routes'));
+// catch 404 and forward to error handler
+
+
 //---- Static Files--------
 
 app.use(express.static(path.join(__dirname, 'public'))); // Envia rutas publicas
 
-//-- Routes ---
 
 
-app.use('/', indexRouter);
-app.use('/login', loginRouter);//Crea la ruta
-
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
@@ -82,4 +104,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = { app: app, server: server };

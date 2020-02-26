@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h3>Ingresar</h3>
+            </div>
+            <img src="images/laser.png" class="mx-auto d-block m-4 logo" style="width: 100px;" alt="logo">
+            <div class="card-body">
+                <form method="POST" action="/api/login"> 
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" autocomplete="off">
+                    <div class="invalid-feedback">
+                        Correo Invalido
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password"name="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <button  type="submit" id="btn-login-input" class="btn btn-primary btn-block">
+                        Entrar
+                    </button>
+                </div>
+                </form>
+                <a href="/signup">No estas registrado? Registarme</a>
+                <br>
+                <a href="/forgot">Olvidaste tu contarseña?</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{>scripts}}
+<script src="/javascripts/login.js"></script>
