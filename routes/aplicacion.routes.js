@@ -1,6 +1,6 @@
 const express = require('express');
 var router = express.Router();
-var ws = require('../ws');// Web-sockets
+var ws = require('../controllers/ws');// Web-sockets
 
 const appCtrl = require('../controllers/aplicacion');
 const Session = require('./Auth');

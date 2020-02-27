@@ -13,9 +13,7 @@ router.post('/api/signup', user.apiSignup);
 router.post('/api/email', user.email);
 router.post('/api/username', user.username);
 
-// router.post('/api/login', user.apiLogin);
-
-router.post('/api/login', passport.authenticate('local-signin', {
+router.post('/api/login', passport.authenticate('mercury-signin', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/login',
     passReqToCallback: true, //Config para pasar los datos recibidos por el formulario

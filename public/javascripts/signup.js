@@ -151,9 +151,9 @@ $('#btnSubmit').click(function(e) {
             dataType: 'json',
             success: function(respuesta) {
                 if (respuesta.saved) {
-                    alert('Guardado');
+                    alert('Usuario Guardado');
                 } else {
-                    alert('Error');
+                    alert('Ocurrio un Error');
                 }
             },
             error: function() {
@@ -162,6 +162,6 @@ $('#btnSubmit').click(function(e) {
             }
         });
     } else {
-        alert('Nopo');
+        alert('Error al ingresar');
     }
 });
