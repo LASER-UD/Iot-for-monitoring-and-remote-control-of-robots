@@ -12,6 +12,7 @@
     "animejs": "^3.0.1",
     "bcryptjs": "^2.4.3",
     "constantinople": "^3.1.2",
+    "cookie-parser": "^1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

@@ -7,6 +7,8 @@ const User = require('../models/user'); //Se trae el modelo de usuario porque pa
 
 
 
+
+
 //------------- Cookies ---------------
 passport.serializeUser((user, done) => { //El servidor recibo el usuario actual y lo serializa
     done(null, user.id); //El servidor guarda el id del usuario actual en la cookie del navegador
@@ -24,7 +26,7 @@ passport.deserializeUser(async(id, done) => { //El servidos recibe la cookie del
 
 
 // recibe un objeto y tiene un callback
-passport.use('mercury-signin', new localStrategy({
+passport.use('local-signin', new localStrategy({
     usernameField: 'email', //username le dice a traves de que dato se autentica el usuario
     passwordField: 'password',
     passReqToCallback: true, // permite recibir mas cosas que solo el email

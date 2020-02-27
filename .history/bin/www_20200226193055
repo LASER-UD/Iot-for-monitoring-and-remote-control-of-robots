@@ -4,9 +4,11 @@
  * Module dependencies.
  */
 
-var app = require('../app').app;
+var app = require('../app');
 var debug = require('debug')('websocket:server');
 var http = require('http');
+
+
 
 app.set('port', process.env.PORT || 3000);
 
