@@ -6,6 +6,4 @@ appCtrl.index = (req, res) => {
 }
 
 
-
-
 module.exports = appCtrl;

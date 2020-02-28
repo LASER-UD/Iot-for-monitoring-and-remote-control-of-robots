@@ -1,0 +1,73 @@
+<div class="container  h-100">
+    <section class="py-5 pl-sm-5">
+
+        <div class="col-lg-8 offset-lg-2">
+
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h3 class="text-center color-b font-weight-bold"> Nuevo Usuario Mercury</h3>
+
+                    <div class="form-group">
+
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input type="name" name="user" id="user" class="form-control" placeholder="Usuario"
+                                    autocomplete="off">
+                                    <div class="invalid-feedback">
+                                    El Usuario es invalido
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="name" name="name" id="name" class="form-control" placeholder="Nombre"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <input type="lastName" name="lastName" id="lastName" class="form-control"
+                                    placeholder="Apellido" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email"
+                                    autocomplete="off">
+                                <div class="invalid-feedback">
+                                    El correo es invalido
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="Contraseña" autocomplete="off" onkeyup="passField()">
+                                <div class="invalid-feedback">
+                                    La contarseña debe tener al menos 8 caracteres
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
+                                    placeholder="Confirmar contraseña" autocomplete="off" onkeyup="passConfirmField()">
+                                    <div class="invalid-feedback">
+                                    La contarseñas no coinciden
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <input  value="Registrarme" id="btnSubmit-signup" class="btn btn-success btn-block">
+                    </div>
+                    <div class="text-center">
+                        <a href="/login" class="color-b" style="font-size: 12px;">¿Ya estas regitrado?
+                            Iniciar sesión</a><br>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{{>scripts}}
+<script src="/javascripts/signup.js"></script>

@@ -136,7 +136,7 @@ $('#confirmPassword').blur(function() {
     passConfirmField();
 });
 
-$('#btnSubmit-signup').click(function(e) {
+$('#btnSubmit').click(function(e) {
     if (username && name && lastName && email && password && confirmPassword) {
         $.ajax({
             url: '/api/signup',
@@ -151,9 +151,9 @@ $('#btnSubmit-signup').click(function(e) {
             dataType: 'json',
             success: function(respuesta) {
                 if (respuesta.saved) {
-                    alert('Usuario Guardado');
+                    alert('Guardado');
                 } else {
-                    alert('Ocurrio un Error');
+                    alert('Error');
                 }
             },
             error: function() {

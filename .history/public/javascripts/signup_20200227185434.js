@@ -136,7 +136,7 @@ $('#confirmPassword').blur(function() {
     passConfirmField();
 });
 
-$('#btnSubmit-signup').click(function(e) {
+$('#btnSubmit').click(function(e) {
     if (username && name && lastName && email && password && confirmPassword) {
         $.ajax({
             url: '/api/signup',
