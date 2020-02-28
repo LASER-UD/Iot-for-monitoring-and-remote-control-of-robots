@@ -144,4 +144,76 @@ document.getElementById('sensor1').innerHTML =("    adelante derecha: ").concat(
 						break;
 				}
 		});
+
+	// easal stuff goes hur
+	var xCenter = 50;
+	var yCenter = 50;
+	var stage = new createjs.Stage('joystick');
+  
+	var psp = new createjs.Shape();
+	psp.graphics.beginFill('#42626F').drawCircle(xCenter, yCenter, 20);
+	psp.alpha = 0.25;
+
+	var vertical = new createjs.Shape();
+	var horizontal = new createjs.Shape();
+	
+	vertical.graphics.beginFill('#fff').drawRect(50, 0, 2, 100);
+	horizontal.graphics.beginFill('#fff').drawRect(0, 50, 100, 2);
+	stage.addChild(psp);
+	stage.addChild(vertical);
+	stage.addChild(horizontal);
+	createjs.Ticker.framerate = 20;
+	createjs.Ticker.addEventListener('tick', stage);
+	stage.update();
+  
+	var myElement = $('#joystick')[0];
+  
+	// create a simple instance
+	// by default, it only adds horizontal recognizers
+	var mc = new Hammer(myElement);
+  
+	mc.on("panstart", function(ev) {
+	  var pos = $('#joystick').position();
+	  xCenter = psp.x;
+	  yCenter = psp.y;
+	  psp.alpha = 0.25;
+	  
+	  stage.update();
+	});
+	
+	// listen to events...
+	mc.on("panmove", function(ev) {
+	  var pos = $('#joystick').position();
+  
+	  var x = (ev.center.x - pos.left - 50);
+	  var y = (ev.center.y - pos.top - 50);
+	  $('#xVal').text('X: ' + x);
+	  $('#yVal').text('Y: ' + (-1 * y));
+	  
+	  var coords = calculateCoords(ev.angle, ev.distance);
+	  
+	  psp.x = coords.x;
+	  psp.y = coords.y;
+  
+	  psp.alpha = 0.5;
+	  
+	  stage.update();
+	});
+	
+	mc.on("panend", function(ev) {
+	  //psp.alpha = 0.25;
+	  createjs.Tween.get(psp).to({x:xCenter,y:yCenter},550,createjs.Ease.elasticOut);
+	});
+  
+  function calculateCoords(angle, distance) {
+	var coords = {};
+	distance = Math.min(distance, 50);  
+	var rads = (angle * Math.PI) / 180.0;
+  
+	coords.x = distance * Math.cos(rads);
+	coords.y = distance * Math.sin(rads);
+	
+	return coords;
+  }
+	  
 	}); 

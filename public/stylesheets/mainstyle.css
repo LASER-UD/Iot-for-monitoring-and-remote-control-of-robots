@@ -1,94 +1,153 @@
 @import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
 :root{/*Variables globales de CSS*/
 --blue-color:#42626F;
+--blue-light-color:#0087ca;
+--gray-color:#C0C0C0;
+--perla-color: 	#F6F6F6;
 /*Box Shadow*/
 --box-s:0px 0 2 px 1 px #e6e5e9;
+--padding-20:20px;
+--padding-10:10px;
+--jostick-len:100px;
 
 }
 
-.body{
-	overflow-y: hidden;
+body{
 	font-family: 'Righteous', ;
 }
 
-.header {
-	display: block;
-	z-index: 300;
-} 
-.header a {
-	float: left;
-	margin: 10px;
-	padding: 10px;
-	border-radius: 5px;
-  }
-  .logo{
-	width: 40%;
-	height: 40%;
-  }
-  .header a:hover {
-	background-color:white;
-  }
-.demo {
-	position: relative;
-	z-index: 1;
-	/*border-bottom: 1px solid rgba(0,0,0,.65);*/
-		cursor: pointer;
-		float: right;
-		margin-right: 10px;
-}
-	
-.demo-content {
-	position: relative;
+#Header {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	color:var(--blue-color);
+	padding: var(--padding-10) var(--padding-20);
+	justify-content: space-between;
+	align-items: center;
 	text-align: center;
-	width: 150px;
-	height: 100%;
-	box-shadow: var(--box-s);
+}
+#DivLogo{
+	text-align: left;
+}
+.logo{
+	width: 50%;
+	height: 50%;
+}
+/*Main Section*/
+
+/*Primary Section*/
+
+.primary_section{
+	display: flex;
+	color:var(--blue-color);
+	justify-content: space-between;
+	align-items: center;
 }
 
-.content{
-	display: block;
-	position: relative;
-	width: 100%;
-	margin: 1%;
-}
-
-.README{
-	float: left;
-	margin-left:5px;
-}
-.imagen{
-	float:left;
+.div_space_video{
 	width: 768px;
 	height: 432px;
-	margin:5px;
-	background-color: #f1f1f1;
-	padding: 0.01em 16px;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-
-}
-.sensors{
-	margin:5px;
-	background: transparent;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-	clear: both;
+	margin-left:var(--padding-20);
+	background-color:var(--perla-color);
+	border-radius: 13px 13px 13px 13px;
+	-webkit-border-radius: 13px 13px 13px 13px;
+	border: 2px solid var(--gray-color);
+	display: flex;
+   	justify-content: center;
+	align-items: center;
+	box-shadow: 0 0 3px #c1bcbc;
 }
 
-#btnSubmit-signup{
-	background-color: var(--blue-color);
-	border-color: var(--blue-color);
+/*Secundary Section*/
+.secunday_section{
+	display: flex;
+	color:var(--blue-color);
+	justify-content: space-between;
+	align-items: center;
 }
 
-@media screen and (max-width: 500px) {
-	.header a {
-	  float: none;
-	  display: block;
-	  text-align: left;
+.Div_Jostick_Canvas{
+	text-align: center;
+}
+#joystick {
+	height: var(--jostick-len);
+	width: var(--jostick-len);
+	border-radius: var(--jostick-len);
+	-moz-border-radius: var(--jostick-len);
+	-webkit-border-radius: var(--jostick-len);
+	text-align: center;
+	background-color: var(--blue-light-color);
+	cursor: all-scroll;
+	user-select: none;
+  	z-index: -100;
+  }
+
+
+/*Response*/
+
+@media (max-width:600px){
+	.logo{
+		display: none;
 	}
-	.demo-content {
-		float: none;
-	  }
-
+	#Header {
+		display: inherit;
+		align-items: center;
+		
+	}
+	.primary_section{
+		display: inherit;
+		height: auto;
+	}
+	
+	.div_space_video{
+		width: 90%;
+		margin:8%;
+		background-color:var(--perla-color);
+		border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px 5px 5px 5px;
+		-webkit-border-radius: 5px 5px 5px 5px;
+		border: 1px solid var(--gray-color);
+	}
+	#jostick{
+		display: none;
+	}
 }
+
+/* Animacion*/
+
+.fasein-animation{
+	animation-duration: 4s;
+	-webkit-animation-duration: 4s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: animationFrames;
+	animation-name: animationFrames;
+  }
+  
+  @keyframes animationFrames{
+	from{
+		opacity: 0;
+	}to{
+		opacity: 1;
+	}
+  }
+  
+  .fadeInDown{
+	-webkit-animation-duration: 3s;
+	animation-duration: 3s;
+	animation-fill-mode: both;
+	-webkit-animation-fill-mode: both;
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+  }
+  
+  @keyframes fadeInDown {
+	from{
+	  opacity: 0;
+	  -webkit-transform: translate3d(0,-100%,0);
+	  transform: translate3d(0,-100%,0);
+	}
+	to{
+	  opacity: 1;
+	  -webkit-transform: translate3d(0,0,0);
+	  transform: translate3d(0,0,0);
+	}
+  }

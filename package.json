@@ -11,6 +11,7 @@
     "@types/ws": "^6.0.1",
     "animejs": "^3.0.1",
     "bcryptjs": "^2.4.3",
+    "bufferutil": "^4.0.1",
     "constantinople": "^3.1.2",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -25,6 +26,7 @@
     "pm2": "^3.5.1",
     "typescript": "^3.4.5",
     "uglify-js": "^3.6.0",
+    "utf-8-validate": "^5.0.2",
     "ws": "^7.2.1"
   },
   "devDependencies": {

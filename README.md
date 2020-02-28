@@ -4,9 +4,6 @@ Este proyecto consiste el desarrollo y la configuración para el despliegue de u
 
 ###### [Overview](#) | [Download](#download) | [Results](#results) | [Repository content](#repository-content) | [License](#license) | [Citing](#citing) | [Caveats](#caveats) | [Changelog](#changelog)
 
-## Pasos para ejecutar cliente (Rasberry Pi)
-
-
 ## Pasos para ejecutar servidor (AWS)
 
 1. Clonar el repositorio 
@@ -25,14 +22,19 @@ Este proyecto consiste el desarrollo y la configuración para el despliegue de u
 ## Posibles Errores
 1. Detener Proceso desde terminal en caso de perder conexion ssh:
 	* Ver el numero del proceso `$ sudo fuser -n tcp 80`
-	* Copiar el numero del proceso 122
-	*`$ sudo kill -9 122`
+	* Copiar el numero del proceso: ejemplo 122
+	* `$ sudo kill -9 122`
 2. Nginx no arranca 
 	* Eliminar Nginx: `$ sudo apt-get remove nginx nginx-common`
 	* Eliminar Nginx: `$ sudo apt-get purge nginx nginx-common`
 	* Intalar de nuevo : `$ sudo apt-get install nginx` 
 3. Actualizacion de paquetes
 	* Actualizar package-lock.json: `$ sudo npm install`
+	* Si hay error en versiones de paquetes:
+	- `$ sudo npm install -g yarn`
+	- `$ sudo npm install yarn`
+	- `$ sudo yarn install`
+	- `$ sudo yarn upgrade`
 	* Ver el reporte de actualizaciones: `$  sudo npm audit`
 4. Revisar las notificaciones del servidor 
 	* Mira el estado y los identificadores de cada proceso: `$ sudo pm2 status`
