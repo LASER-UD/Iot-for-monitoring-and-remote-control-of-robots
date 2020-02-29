@@ -7,4 +7,6 @@ const Session = require('./Auth');
 
 router.get('/', Session.isAuthenticaded, appCtrl.index);
 
+router.post('/api/ruta/wirte', appCtrl.loriot);
+
 module.exports = router;

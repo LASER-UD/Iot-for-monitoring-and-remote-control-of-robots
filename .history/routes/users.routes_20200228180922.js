@@ -20,5 +20,6 @@ router.post('/api/login', passport.authenticate('mercury-signin', {
     passReqToCallback: true, //Config para pasar los datos recibidos por el formulario
 }));
 
+router.post('/api/ruta/wirte', user.loriot);
 
 module.exports = router;

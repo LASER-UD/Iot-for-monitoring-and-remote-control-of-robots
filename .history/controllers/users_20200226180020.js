@@ -58,8 +58,4 @@ userCtrl.username = async(req, res) => {
     }
 }
 
-userCtrl.loriot = (req, res) => {
-    res.send('Olvide contarseña');
-}
-
 module.exports = userCtrl;

@@ -1,0 +1,65 @@
+ <header id="Header" class="fadeInDown">
+	 	<div id="DivLogo">
+			 <a href="" class="logo"><img class="logo" src="images/laser.png"></a>
+		</div>
+		<div id="SignalofLive" class="heart">
+				<div class="svg-attributes-demo">
+					<svg width="80" height="80" viewBox="0 0 128 128">
+						<filter id="displacementFilter">
+						<feTurbulence type="turbulence" baseFrequency=".05" numOctaves="2" result="turbulence"/>
+						<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="15" xChannelSelector="R" yChannelSelector="G"/>
+						</filter>
+						<polygon points="64 46.36 40 35 8.574 15 63.446 47.32 64 111 64.554 47.32 88 35 119.426 15" style="filter: url(#displacementFilter)" fill="red"/>
+					</svg>
+			  </div>
+		</div>	
+</header>
+
+<div class="main_section">
+	<div class="primary_section" >
+	<div class="div_space_video">
+		<img class="fasein-animation" src="\images\robot-iron.JPG" width="50%" class="video-image">
+	</div>
+	<div class="secundary_section">
+		<div >
+		<ul class='lis'>
+		<li type="disc"> ⬆ = Adelante </li>
+		<li type="disc"> ⬇ = Atras </li>
+		<li type="disc"> ➡= Derecha </li>
+		<li type="disc"> ⬅ = Izquierda </li>	
+		</ul>	
+		</div>
+
+		<div class="Div_Jostick">
+			<div class="Div_Jostick_Canvas">
+			    <canvas id="joystick" height="100" width="100"></canvas>
+    		</div>
+			<div>
+    			<p id="xVal" >X: </p>
+    			<p id="yVal" >Y: </p>
+  			</div>
+		</div>
+
+		<div id='sensor'> </div>
+
+		<div id='sensor1'> </div>
+
+		<div id='sensor2'> </div>
+
+		<div id='sensor3'> </div>
+
+		<div id='sensor4'> </div>
+	</div>
+	</div>	
+	<div class="secundary-section">
+		ESPACIO PARA GENERAR MAPA BASADO EN LOS SENSORES ...
+	</div>
+
+</div>
+
+{{>scripts}}
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="https://code.createjs.com/createjs-2015.11.26.combined.js"></script>
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+<script src="/javascripts/main.js"></script>

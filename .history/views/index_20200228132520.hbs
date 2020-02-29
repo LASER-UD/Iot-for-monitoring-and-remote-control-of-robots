@@ -1,0 +1,57 @@
+ <header id="Header">
+	 	<div id="DivLogo">
+			 <a href="" class="logo"><img class="logo" src="images/laser.png"></a>
+		</div>
+		<div id="SignalofLive" class="heart">
+				<div class="demo-content align-center svg-attributes-demo">
+					<svg width="100" height="100" viewBox="0 0 128 128">
+						<filter id="displacementFilter">
+						<feTurbulence type="turbulence" baseFrequency=".05" numOctaves="2" result="turbulence"/>
+						<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="15" xChannelSelector="R" yChannelSelector="G"/>
+						</filter>
+						<polygon points="64 46.36 40 35 8.574 15 63.446 47.32 64 111 64.554 47.32 88 35 119.426 15" style="filter: url(#displacementFilter)" fill="red"/>
+					</svg>
+			  </div>
+		</div>	
+</header>
+
+<div class="content">
+	<img src="" id='streaming' width="50%" class="imagen">
+	<div class="README">
+		<div >
+		<ul class='lis'>
+		<li type="disc"> ⬆ = Adelante </li>
+		<li type="disc"> ⬇ = Atras </li>
+		<li type="disc"> ➡= Derecha </li>
+		<li type="disc"> ⬅ = Izquierda </li>
+		<li type="disc"> Z= giro 90° izquierda</li>
+		<li type='disc'> X= giro 90° derecha</li>
+		<li type="disc"> F = Encender o apagar luces</li>
+		<li type="disc"> S = Recoger bola </li>
+		<li type="disc"> W = Subir a la plataforma de lanzamiento </li>
+		<li type="disc"> D = Lanzar </li>
+		<li type="disc"> A = Sprint </li>
+		<li type="disc"> P = Sprint </li>
+		<li type="disc"> O = Sprint </li>
+		<li type="disc"> I = Sprint </li>
+		
+		</ul>	
+		</div>
+		<div id='sensor'> </div>
+
+		<div id='sensor1'> </div>
+
+		<div id='sensor2'> </div>
+
+		<div id='sensor3'> </div>
+
+		<div id='sensor4'> </div>
+	</div>	
+	<div class="sensors">
+		ESPACIO PARA GENERAR MAPA BASADO EN LOS SENSORES ...
+	</div>
+</div>
+
+{{>scripts}}
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="/javascripts/main.js"></script>

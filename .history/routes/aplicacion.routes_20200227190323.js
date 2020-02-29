@@ -7,4 +7,5 @@ const Session = require('./Auth');
 
 router.get('/', Session.isAuthenticaded, appCtrl.index);
 
+
 module.exports = router;

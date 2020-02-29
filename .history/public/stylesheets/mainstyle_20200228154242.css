@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
+:root{/*Variables globales de CSS*/
+--blue-color:#42626F;
+--blue-light-color:#0087ca;
+--gray-color:#C0C0C0;
+--perla-color: 	#F6F6F6;
+/*Box Shadow*/
+--box-s:0px 0 2 px 1 px #e6e5e9;
+--padding-20:20px;
+--padding-10:10px;
+--jostick-len:90px;
+
+}
+
+body{
+	font-family: 'Righteous', ;
+}
+
+#Header {
+	display: flex;
+	color:var(--blue-color);
+	padding: var(--padding-10) var(--padding-20);
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+}
+#DivLogo{
+	text-align: left;
+}
+.logo{
+	width: 50%;
+	height: 50%;
+}
+/*Main Section*/
+
+/*Primary Section*/
+
+.primary_section{
+	display: flex;
+	color:var(--blue-color);
+	justify-content: space-between;
+	align-items: center;
+}
+
+.div_space_video{
+	width: 768px;
+	height: 432px;
+	margin-left:var(--padding-20);
+	background-color:var(--perla-color);
+	border-radius: 13px 13px 13px 13px;
+	-moz-border-radius: 13px 13px 13px 13px;
+	-webkit-border-radius: 13px 13px 13px 13px;
+	border: 2px solid var(--gray-color);
+	display: flex;
+   	justify-content: center;
+	   align-items: center;
+	box-shadow: 0 0 3px #c1bcbc;
+}
+
+/*Secundary Section*/
+.secunday_section{
+	display: flex;
+	color:var(--blue-color);
+	justify-content: space-between;
+	align-items: center;
+}
+
+#Div_Jostick{
+	text-align: center;
+}
+#joystick {
+	height: var(--jostick-len);
+	width: var(--jostick-len);
+	border-radius: var(--jostick-len);
+	-moz-border-radius: var(--jostick-len);
+	-webkit-border-radius: var(--jostick-len);
+	text-align: center;
+	background-color: var(--blue-light-color);
+	cursor: all-scroll;
+	user-select: none;
+  }
+
+
+/*Response*/
+
+@media (max-width:600px){
+	.logo{
+		display: none;
+	}
+	#Header {
+		display: inherit;
+		align-items: center;
+		
+	}
+	.primary_section{
+		display: inherit;
+		height: auto;
+	}
+	
+	.div_space_video{
+		width: 90%;
+		margin:8%;
+		background-color:var(--perla-color);
+		border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px 5px 5px 5px;
+		-webkit-border-radius: 5px 5px 5px 5px;
+		border: 1px solid var(--gray-color);
+	}
+	#jostick{
+		display: none;
+	}
+}
+
+/* Animacion*/
+
+.fasein-animation{
+	animation-duration: 4s;
+	-webkit-animation-duration: 4s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: animationFrames;
+	animation-name: animationFrames;
+  }
+  
+  @keyframes animationFrames{
+	from{
+		opacity: 0;
+	}to{
+		opacity: 1;
+	}
+  }
+  
+  .fadeInDown{
+	-webkit-animation-duration: 3s;
+	animation-duration: 3s;
+	animation-fill-mode: both;
+	-webkit-animation-fill-mode: both;
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+  }
+  
+  @keyframes fadeInDown {
+	from{
+	  opacity: 0;
+	  -webkit-transform: translate3d(0,-100%,0);
+	  transform: translate3d(0,-100%,0);
+	}
+	to{
+	  opacity: 1;
+	  -webkit-transform: translate3d(0,0,0);
+	  transform: translate3d(0,0,0);
+	}
+  }
