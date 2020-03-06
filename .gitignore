@@ -1,6 +1,6 @@
-node_modules
+*node_modules/*
+*.history/*
 build
 npm-debug.log
 .env
 .DS_Store
-node_modules

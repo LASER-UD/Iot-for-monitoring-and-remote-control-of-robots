@@ -1,60 +1,60 @@
- <header id="Header" class="fadeInDown">
-	 	<div id="DivLogo">
-			 <a href="" class="logo"><img class="logo" src="images/laser.png"></a>
+<header class="header" class="fadeInDown">
+		<div class="header__left mt-lg-3">
+				<img id="icon" class="header__left--img" src="images/laser.png">
 		</div>
-		<div id="SignalofLive" class="heart">
-				<div class="svg-attributes-demo">
-					<svg width="80" height="80" viewBox="0 0 128 128">
-						<filter id="displacementFilter">
-						<feTurbulence type="turbulence" baseFrequency=".05" numOctaves="2" result="turbulence"/>
-						<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="15" xChannelSelector="R" yChannelSelector="G"/>
-						</filter>
-						<polygon points="64 46.36 40 35 8.574 15 63.446 47.32 64 111 64.554 47.32 88 35 119.426 15" style="filter: url(#displacementFilter)" fill="red"/>
-					</svg>
-			  </div>
+		<div class="header__right">
+			<div class="svg-attributes-demo">
+				<svg width="80" height="80" viewBox="0 0 128 128">
+					<filter id="displacementFilter">
+					<feTurbulence type="turbulence" baseFrequency=".05" numOctaves="2" result="turbulence"/>
+					<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="15" xChannelSelector="R" yChannelSelector="G"/>
+					</filter>
+					<polygon points="64 46.36 40 35 8.574 15 63.446 47.32 64 111 64.554 47.32 88 35 119.426 15" style="filter: url(#displacementFilter)" fill="red"/>
+				</svg>
+			</div>
+			<a class="header__right--a" href="/logout">
+				<img id="" class="" src="images/logout.png">
+			</a>
 		</div>	
 </header>
-
-<div class="main_section">
-	<div class="primary_section" >
-	<div class="div_space_video">
-		<img id='streaming' class="fasein-animation" src="\images\robot-iron.JPG" width="50%" class="video-image">
-	</div>
-	<div class="secundary_section">
-		<div >
-		<ul class='lis'>
-		<li type="disc"> ⬆ = Adelante </li>
-		<li type="disc"> ⬇ = Atras </li>
-		<li type="disc"> ➡= Derecha </li>
-		<li type="disc"> ⬅ = Izquierda </li>	
-		</ul>	
+<div class="container-fluid">
+	<div class="row content1">
+	<div class="col-lg-8 col-md-12 content1__left" >
+		<div class="content1__video">
+			<img id='' class="content1__video--img fasein-animation" src="\images\robot-iron.JPG" width="50%" class="video-image">
 		</div>
-
-		<div class="Div_Jostick">
-			<div class="Div_Jostick_Canvas">
-			    <canvas id="joystick" height="100" width="100"></canvas>
-    		</div>
-			<div>
-    			<p id="xVal" >X: </p>
-    			<p id="yVal" >Y: </p>
-  			</div>
+	</div>
+	<div class="col-lg-4 col-md-12 content1__right">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="offset-lg-3 content1__box">
+						<div class="content1__box__space">
+							<canvas id="box" class="content1__caja--canvas" height="100" width="100"></canvas>
+						</div>
+						<p id="iVal" >X: </p>
+						<p id="jVal" >Y: </p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="offset-lg-3 content1__jostick">
+						<div class="content1__jostick__space">
+							<canvas id="joystick" height="100" width="100"></canvas>
+						</div>
+						<p id="xVal" >X: </p>
+						<p id="yVal" >Y: </p>
+				</div>
+			</div>
 		</div>
-
-		<div id='sensor'> </div>
-
-		<div id='sensor1'> </div>
-
-		<div id='sensor2'> </div>
-
-		<div id='sensor3'> </div>
-
-		<div id='sensor4'> </div>
 	</div>
-	</div>	
-	<div class="secundary-section">
-		ESPACIO PARA GENERAR MAPA BASADO EN LOS SENSORES ...
-	</div>
+	<div class="row">
+		<div class="col">
+			<div id='sensor1'> 
+				Espacio para sensores
+			</div>
 
+			<div id='sensor2'> </div>
+		</div>
+	</div>
 </div>
 
 {{>scripts}}

@@ -5,12 +5,7 @@ $(document).ready(function() {
  	const angulo=45;
 	polyEl.setAttribute('points', '64 46.36 40 35 8.574 15 63.446 47.32 64 111 64.554 47.32 88 35 119.426 15','fill','red');
 	feTurbulenceEl.setAttribute('baseFrequency', '.05');
-	feDisplacementMap.setAttribute('scale', '15');
-	document.getElementById('sensor').innerHTML = ("    derecha : ");
-	document.getElementById('sensor1').innerHTML =("    adelante derecha: ").concat(Math.sin(Math.PI*angulo/180)*1,"    ",Math.cos(Math.PI*angulo/180));
-	document.getElementById('sensor2').innerHTML =("    adelante izquierda: ").concat(Math.sin(Math.PI*angulo/180)*1,"    ",Math.cos(Math.PI*angulo/180));
-	document.getElementById('sensor3').innerHTML =("    izquierda : ");
-	 /*DEMO*/
+	feDisplacementMap.setAttribute('scale', '15'); /*DEMO*/
 	var teclas=[0,0,0,0,0,0,0,0,0,0,0,0];
 	var animation = anime({
 		 targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap',],

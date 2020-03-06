@@ -12,7 +12,7 @@ router.get('/forgot', user.forgot);
 router.post('/api/signup', user.apiSignup);
 router.post('/api/email', user.email);
 router.post('/api/username', user.username);
-
+router.get('/logout', user.logout);
 
 router.post('/api/login', passport.authenticate('mercury-signin', {
     successReturnToOrRedirect: '/',

@@ -14,59 +14,48 @@
 
 body{
 	font-family: 'Righteous', ;
+	padding: 0px;
+	margin: 0px;
 }
 
-#Header {
+.header {
 	display: flex;
+	justify-content: space-between;
 	color:var(--blue-color);
 	padding: var(--padding-10) var(--padding-20);
-	justify-content: space-between;
-	align-items: center;
-	text-align: center;
+	
 }
-#DivLogo{
-	text-align: left;
-}
-.logo{
+
+.header__left--img{
 	width: 50%;
 	height: 50%;
 }
-/*Main Section*/
 
-/*Primary Section*/
-
-.primary_section{
+.header__right{
 	display: flex;
-	color:var(--blue-color);
-	justify-content: space-between;
-	align-items: center;
 }
 
-.div_space_video{
-	width: 768px;
-	height: 432px;
-	margin-left:var(--padding-20);
-	background-color:var(--perla-color);
+.header__right--a{
+	margin: 20px 10px 20px 20px;
+}
+
+.content1__video{
+	margin:var(--padding-10) var(--padding-10) var(--padding-10) var(--padding-20);
 	border-radius: 13px 13px 13px 13px;
 	-webkit-border-radius: 13px 13px 13px 13px;
-	border: 2px solid var(--gray-color);
-	display: flex;
-   	justify-content: center;
-	align-items: center;
+	border: 5px solid var(--gray-color);
 	box-shadow: 0 0 3px #c1bcbc;
+	z-index: 100;
 }
-
-/*Secundary Section*/
-.secunday_section{
-	display: flex;
-	color:var(--blue-color);
-	justify-content: space-between;
+.content1__video--img{
+	width: max-content;
+    height: max-content;
+}
+.content1__right{
 	align-items: center;
+	align-content: center;
 }
 
-.Div_Jostick_Canvas{
-	text-align: center;
-}
 #joystick {
 	height: var(--jostick-len);
 	width: var(--jostick-len);
@@ -79,25 +68,29 @@ body{
 	user-select: none;
   	z-index: -100;
   }
+  #box {
+	height: var(--jostick-len);
+	width: var(--jostick-len);
+	text-align: center;
+	background-color: var(--blue-light-color);
+	cursor: all-scroll;
+	user-select: none;
+  	z-index: -100;
+  }
 
 
 /*Response*/
 
 @media (max-width:600px){
-	.logo{
-		display: none;
-	}
-	#Header {
+	.header {
 		display: inherit;
 		align-items: center;
 		
 	}
-	.primary_section{
-		display: inherit;
-		height: auto;
-	}
-	
-	.div_space_video{
+	.header__left--img{
+		display: none;
+	}	
+	.content1__video{
 		width: 90%;
 		margin:8%;
 		background-color:var(--perla-color);
@@ -105,9 +98,6 @@ body{
 		-moz-border-radius: 5px 5px 5px 5px;
 		-webkit-border-radius: 5px 5px 5px 5px;
 		border: 1px solid var(--gray-color);
-	}
-	#jostick{
-		display: none;
 	}
 }
 

@@ -13,7 +13,10 @@ userCtrl.signup = (req, res) => {
 userCtrl.forgot = (req, res) => {
     res.send('Olvide contarseña');
 }
-
+userCtrl.logout = (req, res) =>{
+    req.logOut();
+    res.redirect('/login')
+}
 userCtrl.apiSignup = async(req, res) => {
     const { username, name, lastName, email, password } = req.body; //Destructuring 
     try {
