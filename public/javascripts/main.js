@@ -42,10 +42,11 @@ $(document).ready(function() {
 				const angulo=45;
 				var sensores=data['message']                                                               
 				document.getElementById('topbox').innerHTML = (sensores[0]);
-				document.getElementById('rightbox').innerHTML =(sensores[1]);
-				document.getElementById('bottombox').innerHTML =(sensores[2]);
-				document.getElementById('leftbox').innerHTML =(sensores[2]);
-				if(sensores[0]<5){
+				document.getElementById('rightbox').innerHTML = (sensores[1]);
+				document.getElementById('bottombox').innerHTML = (sensores[2]);
+				document.getElementById('leftbox').innerHTML = (sensores[2]);
+
+				if(sensores[0]<10){
 					alerts[0]=1;
 					linetop.graphics.beginFill('#ff0000').drawRect(0, 0, 100, 3);
 					stagebox.addChild(linetop);
@@ -58,7 +59,7 @@ $(document).ready(function() {
 					}
 				}
 
-				if(sensores[1]<5){
+				if(sensores[1]<10){
 					alerts[1]=1;
 					lineright.graphics.beginFill('#ff0000').drawRect(97,0, 3, 100);
 					stagebox.addChild(lineright);
@@ -66,13 +67,13 @@ $(document).ready(function() {
 				}else{
 					if(alerts[1]==1){
 						alerts[1]=0;
-						lineleft.graphics.clear();
+						lineright.graphics.clear();
 						stagebox.update();
 					}
 				}
 				
 
-				if(sensores[2]<5){
+				if(sensores[2]<10){
 					alerts[2]=1;
 					linebottom.graphics.beginFill('#ff0000').drawRect(0,98, 100, 3);
 					stagebox.addChild(linebottom);
@@ -85,7 +86,7 @@ $(document).ready(function() {
 					}
 				}
 
-				if(sensores[3]<5){
+				if(sensores[3]<10){
 					alerts[3]=1;
 					lineleft.graphics.beginFill('#ff0000').drawRect(0, 0, 3, 100);
 					stagebox.addChild(lineleft);
@@ -93,11 +94,11 @@ $(document).ready(function() {
 				}else{
 					if(alerts[3]==1){
 						alerts[3]=0;
-						lineright.graphics.clear();
+						lineleft.graphics.clear();
 						stagebox.update();
 					}
 				}
-				jCenter=Math.round(((sensores[0]-sensores[2])*10)/34);
+				jCenter=Math.round(((sensores[2]-sensores[0])*10)/34);
 				iCenter=Math.round(((sensores[1]-sensores[3])*10)/34);
 				box.y = jCenter;
 				box.x = iCenter;
@@ -168,86 +169,28 @@ $(document).ready(function() {
 		tec = tecla.keyCode ;	  
 		switch(tec){
 			case 38: //flecha arriba
-			if(jCenter<-17){
-				linetop.graphics.beginFill('#ff0000').drawRect(0, 0, 100, 3);
-				alerts[0]=1;
-			}else{
-				if(alerts[2]==1){
-					alerts[2]=0;
-					linebottom.graphics.clear();
-				}
-				jCenter-=1;
-			}
-			box.y = jCenter;
-			stagebox.addChild(linetop);
-			stagebox.update();
-				/*
 				if(teclas[0]==1){ teclas[0]=0;
 					ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
 					console.log('userFrom 1 userTo 2 message 4');
-				}*/
+				}
 				break;
 			case 40: //flecha abajo
-				if(jCenter>17){
-					linebottom.graphics.beginFill('#ff0000').drawRect(0,98, 100, 3);
-					alerts[2]=1;
-				}else{
-					if(alerts[0]==1){
-						alerts[0]=0;
-						linetop.graphics.clear();
-					}
-					jCenter+=1;
-				}
-				box.y = jCenter;
-				stagebox.addChild(linebottom);
-				stagebox.update();
-				/*
 				if(teclas[1]==1){ teclas[1]=0;
 					ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
 					console.log('userFrom 1 userTo 2 message 5');
-				}*/
+				}
 				break;
 			case 39: // flecha derecha
-				if(iCenter>17){
-					lineright.graphics.beginFill('#ff0000').drawRect(97,0, 3, 100);
-					alerts[1]=1;
-				}else{
-					if(alerts[3]==1){
-						alerts[3]=0;
-						lineleft.graphics.clear();
-					}
-					iCenter+=1;
+				if(teclas[2]==1){ teclas[2]=0;
+					ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
+					console.log('userFrom 1 userTo 2 message 5');
 				}
-				box.x = iCenter;
-				stagebox.addChild(lineright);
-				stagebox.update();
-					/*
-					if(teclas[2]==1){ teclas[2]=0;
-						ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
-						console.log('userFrom 1 userTo 2 message 5');
-					}*/
-					break;
+				break;
 			case 37: // flecha izquierda
-				if(iCenter<-17){
-					lineleft.graphics.beginFill('#ff0000').drawRect(0, 0, 3, 100);
-					alerts[3]=1;
-				}else{
-					if(alerts[1]==1){
-						alerts[1]=0;
-						lineright.graphics.clear();
-					}
-					iCenter-=1;
-				}
-				box.x = iCenter;
-				stagebox.addChild(lineleft);
-				stagebox.update();
-				
-
-			/*
 				if(teclas[3]==1){ teclas[3]=0;
 					ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
 					console.log('userFrom 1 userTo 2 message 4');
-				}*/
+				}
 				break;
 			default:
 				break;
