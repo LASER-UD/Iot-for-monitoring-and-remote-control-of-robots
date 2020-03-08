@@ -5,17 +5,19 @@
 --gray-color:#C0C0C0;
 --perla-color: 	#F6F6F6;
 /*Box Shadow*/
---box-s:0px 0 2 px 1 px #e6e5e9;
+--box-s:0px 0 2 px 1 px #e9e5e5;
 --padding-20:20px;
 --padding-10:10px;
 --jostick-len:100px;
+--box--heght:280px;
+--box--width:250px;
 
 }
 
 body{
-	font-family: 'Righteous', ;
 	padding: 0px;
 	margin: 0px;
+	font-family: 'Righteous', ;
 }
 
 .header {
@@ -52,8 +54,14 @@ body{
     height: max-content;
 }
 .content1__right{
+	display:flex;
+	justify-content: center;
 	align-items: center;
-	align-content: center;
+	flex-direction: column;
+	padding-top: 20px;
+}
+.content1__box__space{
+	position: relative;
 }
 
 #joystick {
@@ -69,14 +77,34 @@ body{
   	z-index: -100;
   }
   #box {
-	height: var(--jostick-len);
-	width: var(--jostick-len);
+	height: var(--box--heght);
+	width: var(--box--width);
 	text-align: center;
 	background-color: var(--blue-light-color);
 	cursor: all-scroll;
 	user-select: none;
   	z-index: -100;
   }
+#topbox{
+	position: absolute;
+	top: 5%;
+    left: 48%;
+}
+#rightbox{
+	position: absolute;
+	top: 45%;
+    right:5%;
+}
+#bottombox{
+	position: absolute;
+	bottom: 2%;
+    left: 48%;
+}
+#leftbox{
+	position: absolute;
+	top: 45%;
+    left: 5%;
+}
 
 
 /*Response*/
