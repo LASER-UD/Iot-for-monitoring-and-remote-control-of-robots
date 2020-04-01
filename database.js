@@ -1,11 +1,14 @@
-const mongoose = require('mongoose');
+const db = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URL, {
+db.Promise = global.Promise;// implement promise for return database
+
+async function connect() {
+  await db.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
-});
+    useCreateIndex: true,
+  });
+  console.log('[db] DB is connected');
+}
 
-mongoose.connection.once('open', () => {
-    console.log('DB is connected');
-});
+module.exports = connect;

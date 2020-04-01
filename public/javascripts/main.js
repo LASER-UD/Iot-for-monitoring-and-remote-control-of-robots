@@ -44,7 +44,7 @@ $(document).ready(function() {
 				document.getElementById('topbox').innerHTML = (sensores[0]);
 				document.getElementById('rightbox').innerHTML = (sensores[1]);
 				document.getElementById('bottombox').innerHTML = (sensores[2]);
-				document.getElementById('leftbox').innerHTML = (sensores[2]);
+				document.getElementById('leftbox').innerHTML = (sensores[3]);
 
 				if(sensores[0]<10){
 					alerts[0]=1;
@@ -98,8 +98,8 @@ $(document).ready(function() {
 						stagebox.update();
 					}
 				}
-				jCenter=Math.round(((sensores[2]-sensores[0])*10)/34);
-				iCenter=Math.round(((sensores[1]-sensores[3])*10)/34);
+				jCenter=Math.round(((sensores[0]-sensores[2])*10)/34);
+				iCenter=Math.round(((sensores[3]-sensores[1])*10)/34);
 				box.y = jCenter;
 				box.x = iCenter;
 				stagebox.update();

@@ -1,6 +1,6 @@
 const Session = {};
 
-Session.isAuthenticaded = (req, res, next) => {
+Session.isAuthenticated = (req, res, next) => {
     if (req.user) {
         next();
     } else {
