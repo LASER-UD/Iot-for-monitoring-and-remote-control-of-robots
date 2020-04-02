@@ -8,9 +8,9 @@
 --box-s:0px 0 2 px 1 px #e9e5e5;
 --padding-20:20px;
 --padding-10:10px;
---jostick-len:150px;
---jostick-len2:300px;
---box--heght:280px;
+--joystick-len:150px;
+--joystick-len2:300px;
+--box--height:280px;
 --box--width:250px;
 
 }
@@ -66,11 +66,11 @@ body{
 }
 
 #joystick {
-	height: var(--jostick-len);
-	width: var(--jostick-len2);
-	border-radius: var(--jostick-len) var(--jostick-len) 0 0;
-	-moz-border-radius: var(--jostick-len) var(--jostick-len) 0 0;
-	-webkit-border-radius: var(--jostick-len) var(--jostick-len) 0 0 ;
+	height: var(--joystick-len);
+	width: var(--joystick-len2);
+	border-radius: var(--joystick-len) var(--joystick-len) 0 0;
+	-moz-border-radius: var(--joystick-len) var(--joystick-len) 0 0;
+	-webkit-border-radius: var(--joystick-len) var(--joystick-len) 0 0 ;
 	text-align: center;
 	background-color: var(--blue-light-color);
 	cursor: all-scroll;
@@ -78,7 +78,7 @@ body{
   	z-index: -100;
   }
   #box {
-	height: var(--box--heght);
+	height: var(--box--height);
 	width: var(--box--width);
 	text-align: center;
 	background-color: var(--blue-light-color);
@@ -132,7 +132,7 @@ body{
 
 /* Animacion*/
 
-.faseIn-animation{
+.fadeIn-animation{
 	animation-duration: 4s;
 	-webkit-animation-duration: 4s;
 	-webkit-animation-fill-mode: both;
