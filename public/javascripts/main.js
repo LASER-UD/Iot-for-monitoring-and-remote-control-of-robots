@@ -71,26 +71,26 @@ const pressDown=(code)=>{
 	switch(code.keyCode){
 		case 38: //flecha arriba
 			if(keys[0]==1){ keys[0]=0;
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
-				console.log('userFrom 1 userTo 2 message 4');
+				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				console.log('to botControl message 4');
 			}
 			break;
 		case 40: //flecha abajo
 			if(keys[1]==1){ keys[1]=0;
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
-				console.log('userFrom 1 userTo 2 message 5');
+				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				console.log('to botControl message 5');
 			}
 			break;
 		case 39: // flecha derecha
 			if(keys[2]==1){ keys[2]=0;
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
-				console.log('userFrom 1 userTo 2 message 5');
+				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				console.log('to botControl message 5');
 			}
 			break;
 		case 37: // flecha izquierda
 			if(keys[3]==1){ keys[3]=0;
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':'4','type':'tecla'}));
-				console.log('userFrom 1 userTo 2 message 4');
+				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				console.log('to botControl message 4');
 			}
 			break;
 		default:
@@ -104,38 +104,38 @@ const pressUp = (code)=>{
 		case 38: //flecha arriba
 			if(keys[0]==0){ 
 				keys[0]=1;
-				console.log('userFrom 1 userTo 2 message 0');
+				console.log('to botControl message 0');
 				socket.emit('message',{
 					to:'bot',
 					message:'0'
 				})
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'0'}));
+				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'0'}));
 			}
 			break;
 		case 40: //flecha abajo
 			if(keys[1]==0){ keys[1]=1;
-				console.log('userFrom 1 userTo 2 message 1');
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'1'}));
+				console.log('to botControl message 1');
+				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'1'}));
 			}
 			break;
 		case 39: // flecha derecha
 			if(keys[2]==0){ keys[2]=1;
-				console.log('userFrom 1 userTo 2 message 2');
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'2',}));
+				console.log('to botControl message 2');
+				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'2',}));
 			}
 			break;
 		case 37: // flecha izquierda
 			if(keys[3]==0){ keys[3]=1;
-			console.log('userFrom 1 userTo 2 message 3');
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','type':'tecla','message':'3'}));
+			console.log('to botControl message 3');
+				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'3'}));
 			}
 			break;
 		default:
 		let men= String.fromCharCode(tec)
 				 //Z=90 x=88  f=70  s=83  w=87  d=68 a=65
 			if (men=='Z' || men=='X' || men=='F' || men=='S' || men=='W' || men=='D'||men=='P'|| men=='O'||men=='I' || men=='A'){
-				console.log('userFrom 1 userTo 2 message 1',men);
-				//ws.send(JSON.stringify({'userFrom':'1','userTo': '2','message':men,'type':'tecla'})); 
+				console.log('to botControl message 1',men);
+				ws.send(JSON.stringify({'to': 'botControl','message':men,'type':'tecla'})); 
 			}
 			break;
 	}
@@ -172,13 +172,13 @@ ws.onmessage = (e)=>{
 			updateSensors(data.message);
 			break;
 		case 'disconnect':
-			if(data['message']=='bot'){
+			if(data['message']=='botControl'){
 				console.log(`bot is disconnected`);
 				animation.play();
 			}
 			break;
 		case 'connect':
-			if(data['message']=='bot'){
+			if(data['message']=='botControl'){
 				console.log(`bot is connected`);
 				console.log(data)
 				animation.play()
