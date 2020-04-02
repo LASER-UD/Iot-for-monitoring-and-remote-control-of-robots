@@ -86,22 +86,22 @@ body{
 	user-select: none;
   	z-index: -100;
   }
-#topbox{
+#topBox{
 	position: absolute;
 	top: 5%;
     left: 48%;
 }
-#rightbox{
+#rightBox{
 	position: absolute;
 	top: 45%;
     right:5%;
 }
-#bottombox{
+#bottomBox{
 	position: absolute;
 	bottom: 2%;
     left: 48%;
 }
-#leftbox{
+#leftBox{
 	position: absolute;
 	top: 45%;
     left: 5%;
@@ -132,7 +132,7 @@ body{
 
 /* Animacion*/
 
-.fasein-animation{
+.faseIn-animation{
 	animation-duration: 4s;
 	-webkit-animation-duration: 4s;
 	-webkit-animation-fill-mode: both;

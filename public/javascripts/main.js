@@ -105,10 +105,6 @@ const pressUp = (code)=>{
 			if(keys[0]==0){ 
 				keys[0]=1;
 				console.log('to botControl message 0');
-				socket.emit('message',{
-					to:'bot',
-					message:'0'
-				})
 				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'0'}));
 			}
 			break;
@@ -152,8 +148,8 @@ const deactivateKeys = () =>{
 	document.body.removeEventListener('keydown',pressUp,false)
 }
 
-var ws = new WebSocket('ws://localhost:8000/controller');
-//var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/controller');
+//var ws = new WebSocket('ws://localhost:8000/controller');
+var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/controller');
 
 
 // event emit when connected
@@ -161,11 +157,11 @@ ws.onopen = (data) =>{
 	console.log('WebSocket is Connected');
 }
 // event emit when receiving message 
-ws.onmessage = (e)=>{
-	let data=JSON.parse(e.data);
-	switch(data['type']){
+ws.onmessage = (message)=>{
+	const data=JSON.parse(message.data)
+	switch(data.type){
 		case 'image':
-			document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data['message'];
+			document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data.message;
 			break;
 		case 'sensor':
 			updateSensors(data.message);
