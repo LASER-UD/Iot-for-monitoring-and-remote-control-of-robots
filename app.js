@@ -56,5 +56,4 @@ app.use((req, res, next) => {
 //-- Routes ---
 router(app);// le pasamos nuestras rutas al archivo network/routes.js
 socket.connect(server);// le pasamos servidor http al socket
-
 module.exports = { app: app, server: server };

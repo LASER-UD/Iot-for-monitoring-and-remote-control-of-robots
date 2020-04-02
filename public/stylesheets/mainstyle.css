@@ -8,7 +8,8 @@
 --box-s:0px 0 2 px 1 px #e9e5e5;
 --padding-20:20px;
 --padding-10:10px;
---jostick-len:100px;
+--jostick-len:150px;
+--jostick-len2:300px;
 --box--heght:280px;
 --box--width:250px;
 
@@ -66,10 +67,10 @@ body{
 
 #joystick {
 	height: var(--jostick-len);
-	width: var(--jostick-len);
-	border-radius: var(--jostick-len);
-	-moz-border-radius: var(--jostick-len);
-	-webkit-border-radius: var(--jostick-len);
+	width: var(--jostick-len2);
+	border-radius: var(--jostick-len) var(--jostick-len) 0 0;
+	-moz-border-radius: var(--jostick-len) var(--jostick-len) 0 0;
+	-webkit-border-radius: var(--jostick-len) var(--jostick-len) 0 0 ;
 	text-align: center;
 	background-color: var(--blue-light-color);
 	cursor: all-scroll;
