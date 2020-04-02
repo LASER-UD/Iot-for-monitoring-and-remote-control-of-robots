@@ -152,7 +152,9 @@ const deactivateKeys = () =>{
 	document.body.removeEventListener('keydown',pressUp,false)
 }
 
+//var ws = new WebSocket('ws://localhost:8000/controller');
 var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/controller');
+
 
 // event emit when connected
 ws.onopen = (data) =>{

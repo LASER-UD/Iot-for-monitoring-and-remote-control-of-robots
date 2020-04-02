@@ -4,7 +4,6 @@ webSockets = new WebSocketServer({ noServer: true });//Objeto vacio
 connections = [1, 1, 1];
 
 wss.on('connection', (ws, req) => {
-	console.log(req)
 	switch (req.url) {
 		case '/controller':
 			if (connections[1] == 1) {
