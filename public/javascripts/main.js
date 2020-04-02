@@ -158,8 +158,7 @@ var ws = new WebSocket('ws://localhost:8000/controller');
 
 // event emit when connected
 ws.onopen = (data) =>{
-	console.log(data)
-	console.log('websocket is connected');
+	console.log('WebSocket is Connected');
 }
 // event emit when receiving message 
 ws.onmessage = (e)=>{
