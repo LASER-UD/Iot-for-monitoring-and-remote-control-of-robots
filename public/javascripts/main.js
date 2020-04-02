@@ -152,48 +152,39 @@ const deactivateKeys = () =>{
 	document.body.removeEventListener('keydown',pressUp,false)
 }
 
-const socket = io.connect('http://ritaportal.udistrital.edu.co:10206',{
-forceNew: true,
-});
+var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/controller');
 
-socket.on('message', (data) => {
-	console.log('new message');
+// event emit when connected
+ws.onopen = (data) =>{
 	console.log(data)
-	switch(data.type){
-		case 'sensors':
-			update(data.message)
-			break;
+	console.log('websocket is connected');
+}
+// event emit when receiving message 
+ws.onmessage = (e)=>{
+	let data=JSON.parse(e.data);
+	switch(data['type']){
 		case 'image':
 			document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data['message'];
 			break;
+		case 'sensor':
+			updateSensors(data.message);
+			break;
+		case 'disconnect':
+			if(data['message']=='bot'){
+				console.log(`bot is disconnected`);
+				animation.play();
+			}
+			break;
 		case 'connect':
-			console.log(data.message)
-			if(data.message=='bot'){
+			if(data['message']=='bot'){
+				console.log(`bot is connected`);
+				console.log(data)
 				animation.play()
 				activateKeys()
 			}
 			break;
-		case 'disconnect':
-			console.log(data.message)
-			if(data.message=='bot'){
-				deactivateKeys();
-				animation.pause()
-			}
-			break;
 		default:
 			break;
+		
 	}
-});
-
-socket.on('connected', (data) => {
-	console.log(data)
-	animation.play()
-	activateKeys()
-	socket.emit('authenticate',{name:'controller',})
-});
-
-socket.on('disconnected',(data) => {
-	console.log(data)
-	deactivateKeys();
-	animation.pause()
-})
+}

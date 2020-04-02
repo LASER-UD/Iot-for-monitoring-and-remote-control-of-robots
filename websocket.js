@@ -1,13 +1,12 @@
 var WebSocketServer = require('ws').Server,
-wss = new WebSocketServer({ port: 8000 })
+wss = new WebSocketServer({ port: process.env.PORT_WEBSOCKET || 3000 })
 webSockets = new WebSocketServer({ noServer: true });//Objeto vacio
 connections = [1, 1, 1];
-var des;
 
-wss.on('connection', function (ws, req) {
-	user = req.url;
-	switch (user) {
-		case '/mecanico':
+wss.on('connection', (ws, req) => {
+	console.log(req)
+	switch (req.url) {
+		case '/controller':
 			if (connections[1] == 1) {
 				webSockets[1] = ws;
 				connections[1] = 0;
@@ -16,7 +15,7 @@ wss.on('connection', function (ws, req) {
 					console.log('Jordan el mecanico se conecto');
 					webSockets[1].send(JSON.stringify({'userFrom': 'Rita', 'type': 'JC' }));
 					webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
-    	    webSockets[3].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
+			webSockets[3].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
 				}
 			} else {
 				ws.send('usuario ya conectado');
@@ -33,7 +32,7 @@ wss.on('connection', function (ws, req) {
 				webSockets[2].send(JSON.stringify({'userFrom': 'Rita', 'type': 'MC' }));
 			}
 			break;
-   	case '/jordan1':
+		case '/jordan1':
 			webSockets[3] = ws;
 			connections[3] = 0;
 			console.log('Jordan1 Conectado');
@@ -46,7 +45,7 @@ wss.on('connection', function (ws, req) {
 		default:
 			console.log('usuario sin identificacion');
 			break;
-	}
+}
 	ws.on('message', function (message) {
 		var text_data_json = JSON.parse(message);
 		if (text_data_json['userTo'] != 'Rita') {
@@ -100,6 +99,6 @@ wss.on('connection', function (ws, req) {
 				console.log('usuario sin identificacion');
 			break;
 		}
-	}
-	);
+	
+	});
 })
