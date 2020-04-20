@@ -28,7 +28,6 @@ passport.use('localSignIn', new localStrategy({
             return done(null, false); // (err, user para cookie)
         }
         const pass = await user.equalPassword(password);
-        console.log(pass);
         if (!pass) {
             //req.flash('error_msg', 'Contraseña incorrecta');
             return done(null, false);

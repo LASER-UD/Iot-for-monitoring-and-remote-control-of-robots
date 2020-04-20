@@ -8,11 +8,14 @@ const sendMessage = (message) =>{
         if(i!=-1){
                 try{
                         clients[i].id.send(JSON.stringify(message));
+                        return true;
                 }catch(error){
                         console.log(`[Error] in send message to ${message.to}, Message ${error} `)
+                        return false;
                 }
         }else{
                 console.log(`[Warning] User ${message.to} no is connected`)
+                return false;
         }
 }
 
@@ -42,16 +45,16 @@ wss.on('connection',(ws,req)=>{
                                         to:'botControl',
                                         message:'controller'
                                 })
-                                sendMessage({
+                                if(sendMessage({
                                         type:'connect',
                                         to:'botVideo',
                                         message:'controller'
-                                })
+                                })){
                                 sendMessage({
                                         type:'connect',
                                         to:'controller',
                                         message:'botVideo'
-                                })
+                                })}
                                 break;
                         case 'botControl':
                                 addConnection(socketClient,ws)
@@ -63,16 +66,16 @@ wss.on('connection',(ws,req)=>{
                                 break;
                         case 'botVideo':
                                 addConnection(socketClient,ws)
-                                sendMessage({
+                                if(sendMessage({
                                         type:'connect',
                                         to:'controller',
                                         message:'botVideo'
-                                })
+                                })){
                                 sendMessage({
                                         type:'connect',
                                         to:'botVideo',
                                         message:'controller'
-                                })
+                                })}
                                 break;
                         break;
                         default:
@@ -99,12 +102,12 @@ wss.on('connection',(ws,req)=>{
                                         type:'disconnect',
                                         to:'botControl',
                                         message:'controller'
-								})
-								sendMessage({
-									type:'disconnect',
-									to:'botVideo',
-									message:'controller'
-								})
+                                })
+                                sendMessage({
+                                        type:'disconnect',
+                                        to:'botVideo',
+                                        message:'controller'
+                                })
                                 break;
                         case 'botControl':
                                 sendMessage({

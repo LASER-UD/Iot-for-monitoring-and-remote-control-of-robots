@@ -5,7 +5,6 @@ const logger = require('morgan'); //logger es igual a morgan
 const exphbs = require('express-handlebars');
 const passport = require('passport');
 const session = require('express-session');
-//const socket = require('./socket');
 
 //-- Inicializacion
 const router = require('./network/routes');//archivo de rutas
