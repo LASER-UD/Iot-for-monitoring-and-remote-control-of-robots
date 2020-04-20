@@ -195,7 +195,7 @@ const deactivateKeys = () =>{
 
 //ws://localhost:8000/controller
 //ws://ritaportal.udistrital.edu.co:10207/controller
-const socket = io.connect('ws://localhost:8000/?user=controller',{
+const socket = io.connect('ws://ritaportal.udistrital.edu.co:10207/?user=controller',{
 forceNew: true,
 });
 
