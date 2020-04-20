@@ -74,6 +74,12 @@ mc.on("panend", (ev) => {
     pointerAux.graphics.beginFill('#42626F').drawCircle(150+xCenter, 150+yCenter, 20);
     stageJoystick.addChild(pointerAux);
     stageJoystick.update();
-    ws.send(JSON.stringify({to:'botControl',type:'arm',dataX:`${(Math.floor(64*xCenter)/65+128)}`,dataY:`${(Math.floor(-64*yCenter)/65)}`}))
+    socket.emit('message',{
+        to:'botControl',
+        type:'arm',
+        dataX:(Math.floor(64*xCenter)/65+128),
+        dataY:(Math.floor(-64*yCenter)/65)
+    })
+    //ws.send(JSON.stringify({to:'botControl',type:'arm',dataX:`${(Math.floor(64*xCenter)/65+128)}`,dataY:`${(Math.floor(-64*yCenter)/65)}`}))
 });
 

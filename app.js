@@ -5,7 +5,7 @@ const logger = require('morgan'); //logger es igual a morgan
 const exphbs = require('express-handlebars');
 const passport = require('passport');
 const session = require('express-session');
-//const socket = require('./socket');
+const socket = require('./socket');
 
 //-- Inicializacion
 const router = require('./network/routes');//archivo de rutas
@@ -55,5 +55,9 @@ app.use((req, res, next) => {
 
 //-- Routes ---
 router(app);// le pasamos nuestras rutas al archivo network/routes.js
-
+// const serverWs = require('http').createServer();
+// serverWs.listen(process.env.PORT_WEBSOCKET || 8000,()=>{
+//     console.log(`Sever WebSocket on port ${process.env.PORT_WEBSOCKET}`);
+// });
+socket.connect(server);// le pasamos servidor http al socket
 module.exports = { app: app, server: server };

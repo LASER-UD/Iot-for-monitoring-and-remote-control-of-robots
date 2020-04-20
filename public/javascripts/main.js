@@ -71,26 +71,46 @@ const pressDown=(code)=>{
 	switch(code.keyCode){
 		case 38: //flecha arriba
 			if(keys[0]==1){ keys[0]=0;
-				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
 				console.log('to botControl message 4');
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'4'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
 			}
 			break;
 		case 40: //flecha abajo
 			if(keys[1]==1){ keys[1]=0;
-				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
-				console.log('to botControl message 5');
+				console.log('to botControl message 4');
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'4'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
 			}
 			break;
 		case 39: // flecha derecha
 			if(keys[2]==1){ keys[2]=0;
-				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
-				console.log('to botControl message 5');
+				console.log('to botControl message 4');
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'4'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
 			}
 			break;
 		case 37: // flecha izquierda
 			if(keys[3]==1){ keys[3]=0;
-				ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
 				console.log('to botControl message 4');
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'4'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
 			}
 			break;
 		default:
@@ -105,25 +125,45 @@ const pressUp = (code)=>{
 			if(keys[0]==0){ 
 				keys[0]=1;
 				console.log('to botControl message 0');
-				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'0'}));
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'0'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'0'}));
 			}
 			break;
 		case 40: //flecha abajo
 			if(keys[1]==0){ keys[1]=1;
 				console.log('to botControl message 1');
-				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'1'}));
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'1'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'1'}));
 			}
 			break;
 		case 39: // flecha derecha
 			if(keys[2]==0){ keys[2]=1;
 				console.log('to botControl message 2');
-				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'2',}));
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'2'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'2',}));
 			}
 			break;
 		case 37: // flecha izquierda
 			if(keys[3]==0){ keys[3]=1;
-			console.log('to botControl message 3');
-				ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'3'}));
+				console.log('to botControl message 3');
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:'3'
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'3'}));
 			}
 			break;
 		default:
@@ -131,7 +171,12 @@ const pressUp = (code)=>{
 				 //Z=90 x=88  f=70  s=83  w=87  d=68 a=65
 			if (men=='Z' || men=='X' || men=='F' || men=='S' || men=='W' || men=='D'||men=='P'|| men=='O'||men=='I' || men=='A'){
 				console.log('to botControl message 1',men);
-				ws.send(JSON.stringify({'to': 'botControl','message':men,'type':'tecla'})); 
+				socket.emit('message',{
+					to:'botControl',
+					type:'tecla',
+					message:men
+				})
+				//ws.send(JSON.stringify({'to': 'botControl','message':men,'type':'tecla'})); 
 			}
 			break;
 	}
@@ -148,39 +193,45 @@ const deactivateKeys = () =>{
 	document.body.removeEventListener('keydown',pressUp,false)
 }
 
-//var ws = new WebSocket('ws://localhost:8000/controller');
-var ws = new WebSocket('ws://ritaportal.udistrital.edu.co:10207/controller');
+//ws://localhost:8000/controller
+//ws://ritaportal.udistrital.edu.co:10207/controller
+const socket = io.connect('ws://localhost:8000/?user=controller',{
+forceNew: true,
+});
 
-
-// event emit when connected
-ws.onopen = (data) =>{
-	console.log('WebSocket is Connected');
-}
-// event emit when receiving message 
-ws.onmessage = (message)=>{
-	const data=JSON.parse(message.data)
+socket.on('message', (data) => {
 	switch(data.type){
 		case 'image':
-			document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data.message;
+			document.querySelector('#streaming').src= 'data:image/jpg;base64,'+data['message'];
 			break;
-		case 'sensor':
-			updateSensors(data.message);
-			break;
-		case 'disconnect':
-			if(data['message']=='botControl'){
-				console.log(`bot is disconnected`);
-				animation.play();
-			}
+		case 'sensors':
+			updateSensors(data.message)
 			break;
 		case 'connect':
-			if(data['message']=='botControl'){
-				console.log(`bot is connected`);
-				console.log(data)
+			if(data.message==='botControl'){
 				animation.play()
 				activateKeys()
+			}
+			break;
+		case 'disconnect':
+			console.log(data.message)
+			if(data.message==='botControl'){
+				deactivateKeys();
+				animation.pause()
 			}
 			break;
 		default:
 			break;
 	}
-}
+});
+
+socket.on('connected', (data) => {
+	console.log(`Server said ${data}`)
+	animation.play()
+});
+
+socket.on('disconnected',(data) => {
+	console.log(`Server says ${data}`)
+	deactivateKeys();
+	animation.pause()
+})
