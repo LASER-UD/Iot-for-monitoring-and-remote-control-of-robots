@@ -7,17 +7,27 @@ const sendMessage = (message,socketClient) =>{
         let i = clients.findIndex(objClient => message.to === objClient.name)
         if(i!=-1){
                 try{
-                        socketClient.to(`${clients[i].id}`).emit(message);
+                        socketClient.to(clients[i].id).emit('message',message);
+                }catch(error){
+                        console.log(`[Error] in send message to ${message.to}, Message ${error} `)
+                }
+        }
+}
+
+const sendConnected = (message,socketClient) =>{
+        let i = clients.findIndex(objClient => message.to === objClient.name)
+        if(i!=-1){
+                try{
+                        socketClient.to(clients[i].id).emit('connected',message);
                         return true
                 }catch(error){
                         console.log(`[Error] in send message to ${message.to}, Message ${error} `)
                         return false
                 }
-        }else{
-                console.log(`[Warning] User ${message.to} no is connected`)
-                return false
         }
+        return false;
 }
+
 const removeConnection = (id) => {
     //let i = clients.map((e) => { return e.name; }).indexOf(message.to);
     let i = clients.findIndex(objClient=> id === objClient.id)
@@ -40,51 +50,26 @@ const connect = (server) => {
     console.log(`Server Websocket on port ${process.env.PORT_WEBSOCKET}`)
 
     io.on('connection', (socketClient) => {
-            addConnection(socketClient.handshake.query.user,socketClient.id,socketClient)
-            socketClient.emit('connected', 'welcome');
-            switch(socketClient.handshake.query.user){
+            const user = socketClient.handshake.query.user
+            switch(user){
                 case 'controller':
-                        sendMessage({
-                                type:'connect',
-                                to:'botControl',
-                                message:'controller'
-                        })
-                        if(sendMessage({
-                                type:'connect',
-                                to:'botVideo',
-                                message:'controller'
-                        })){
-                            sendMessage({
-                                type:'connect',
-                                to:'controller',
-                                message:'botControl'
-                            })
+                        addConnection(user,socketClient.id)
+                        sendConnected({to:'botVideo',message:'controller'},socketClient)
+                        if(sendConnected({to:'botControl',message:'controller'},socketClient)){
+                                socketClient.emit('connected', {message:'botControl'});
                         }
+                        
                         break;
                 case 'botControl':
-                        if(sendMessage({
-                                type:'connect',
-                                to:'controller',
-                                message:'botControl'
-                        })){
-                            sendMessage({
-                                type:'connect',
-                                to:'btnControl',
-                                message:'controller'
-                            })
+                        addConnection(user,socketClient.id)
+                        if(sendConnected({to:'controller',message:'botControl'},socketClient)){
+                                socketClient.emit('connected', {message:'controller'});
                         }
                         break;
                 case 'botVideo':
-                        if(sendMessage({
-                                type:'connect',
-                                to:'controller',
-                                message:'botVideo'
-                        })){
-                            sendMessage({
-                                type:'connect',
-                                to:'controller',
-                                message:'controller'
-                            })
+                        addConnection(user,socketClient.id)
+                        if(sendConnected({to:'controller',message:'botVideo'},socketClient)){
+                                socketClient.emit('connected', {message:'controller'});
                         }
                         break;
                 break;
@@ -93,11 +78,9 @@ const connect = (server) => {
                         socketClient.disconnect(true)
                 break;
             }
-            console.log(clients)
 
             socketClient.on('message',(data)=>{
-                console.log(`${data}`);
-                sendMessage(data)
+                sendMessage(data,socketClient)
             })
 
             socketClient.on('disconnect', ()=>{
@@ -107,19 +90,19 @@ const connect = (server) => {
                                     type:'disconnect',
                                     to:'botControl',
                                     message:'controller'
-                            })
+                            },socketClient)
                             sendMessage({
                                 type:'disconnect',
                                 to:'botVideo',
                                 message:'controller'
-                            })
+                            },socketClient)
                             break;
                     case 'botControl':
                             sendMessage({
-                                    type:'disconnect',
-                                    to:'controller',
-                                    message:'botControl'
-                            })
+                                type:'disconnect',
+                                to:'controller',
+                                message:'botControl'
+                            },socketClient)
                     break;
                     default:
                             break;

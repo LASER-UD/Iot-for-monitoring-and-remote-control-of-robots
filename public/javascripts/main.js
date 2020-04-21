@@ -74,10 +74,10 @@ const pressDown=(code)=>{
 				console.log('to botControl message 4');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'4'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'keys'}));
 			}
 			break;
 		case 40: //flecha abajo
@@ -85,10 +85,10 @@ const pressDown=(code)=>{
 				console.log('to botControl message 4');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'4'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'keys'}));
 			}
 			break;
 		case 39: // flecha derecha
@@ -96,10 +96,10 @@ const pressDown=(code)=>{
 				console.log('to botControl message 4');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'4'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'keys'}));
 			}
 			break;
 		case 37: // flecha izquierda
@@ -107,10 +107,10 @@ const pressDown=(code)=>{
 				console.log('to botControl message 4');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'4'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'tecla'}));
+				//ws.send(JSON.stringify({'to': 'botControl','message':'4','type':'keys'}));
 			}
 			break;
 		default:
@@ -127,10 +127,10 @@ const pressUp = (code)=>{
 				console.log('to botControl message 0');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'0'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'0'}));
+				//ws.send(JSON.stringify({'to': 'botControl','type':'keys','message':'0'}));
 			}
 			break;
 		case 40: //flecha abajo
@@ -138,10 +138,10 @@ const pressUp = (code)=>{
 				console.log('to botControl message 1');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'1'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'1'}));
+				//ws.send(JSON.stringify({'to': 'botControl','type':'keys','message':'1'}));
 			}
 			break;
 		case 39: // flecha derecha
@@ -149,10 +149,10 @@ const pressUp = (code)=>{
 				console.log('to botControl message 2');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'2'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'2',}));
+				//ws.send(JSON.stringify({'to': 'botControl','type':'keys','message':'2',}));
 			}
 			break;
 		case 37: // flecha izquierda
@@ -160,10 +160,10 @@ const pressUp = (code)=>{
 				console.log('to botControl message 3');
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:'3'
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','type':'tecla','message':'3'}));
+				//ws.send(JSON.stringify({'to': 'botControl','type':'keys','message':'3'}));
 			}
 			break;
 		default:
@@ -173,10 +173,10 @@ const pressUp = (code)=>{
 				console.log('to botControl message 1',men);
 				socket.emit('message',{
 					to:'botControl',
-					type:'tecla',
+					type:'keys',
 					message:men
 				})
-				//ws.send(JSON.stringify({'to': 'botControl','message':men,'type':'tecla'})); 
+				//ws.send(JSON.stringify({'to': 'botControl','message':men,'type':'keys'})); 
 			}
 			break;
 	}
@@ -193,8 +193,8 @@ const deactivateKeys = () =>{
 	document.body.removeEventListener('keydown',pressUp,false)
 }
 
-//ws://localhost:8000/controller
-//ws://ritaportal.udistrital.edu.co:10207/controller
+//ws://localhost:8000/?user=controller
+//ws://ritaportal.udistrital.edu.co:10207/?user=controller
 const socket = io.connect('ws://ritaportal.udistrital.edu.co:10207/?user=controller',{
 forceNew: true,
 });
@@ -207,14 +207,8 @@ socket.on('message', (data) => {
 		case 'sensors':
 			updateSensors(data.message)
 			break;
-		case 'connect':
-			if(data.message==='botControl'){
-				animation.play()
-				activateKeys()
-			}
-			break;
 		case 'disconnect':
-			console.log(data.message)
+			console.log(`User ${data.message} is Disconnect`)
 			if(data.message==='botControl'){
 				deactivateKeys();
 				animation.pause()
@@ -226,8 +220,10 @@ socket.on('message', (data) => {
 });
 
 socket.on('connected', (data) => {
-	console.log(`Server said ${data}`)
-	animation.play()
+	if(data.message==='botControl'){
+		animation.play()
+		activateKeys()
+	}
 });
 
 socket.on('disconnected',(data) => {

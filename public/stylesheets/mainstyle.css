@@ -51,8 +51,8 @@ body{
 	z-index: 100;
 }
 .content1__video--img{
-	width: max-content;
-    height: max-content;
+	height: max-content;
+	width: 100%;
 }
 .content1__right{
 	display:flex;
