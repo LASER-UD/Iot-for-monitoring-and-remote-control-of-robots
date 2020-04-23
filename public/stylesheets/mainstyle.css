@@ -51,7 +51,7 @@ body{
 	z-index: 100;
 }
 .content1__video--img{
-	height: max-content;
+	height: 100%;
 	width: 100%;
 }
 .content1__right{
