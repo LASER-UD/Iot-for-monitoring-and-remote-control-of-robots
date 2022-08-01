@@ -22,7 +22,7 @@
     "typescript": "^3.8.3",
     "uglify-js": "^3.8.0",
     "utf-8-validate": "^5.0.2",
-    "ws": "^7.2.1"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
